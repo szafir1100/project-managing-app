@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.company.LoginScreen">
+  <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="800" height="600"/>
+    </constraints>
+    <properties>
+      <enabled value="true"/>
+      <minimumSize width="800" height="600"/>
+      <preferredSize width="800" height="600"/>
+      <requestFocusEnabled value="true"/>
+    </properties>
+    <border type="line">
+      <color color="-16777216"/>
+    </border>
+    <children>
+      <grid id="cf3b8" binding="loginWrapper" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="100"/>
+            <preferred-size width="550" height="400"/>
+            <maximum-size width="600" height="600"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-5855578"/>
+          <doubleBuffered value="false"/>
+          <enabled value="true"/>
+          <foreground color="-6843461"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="line">
+          <font/>
+          <title-color color="-13158601"/>
+          <size top="5" left="5" bottom="5" right="5"/>
+          <color color="-16777216"/>
+        </border>
+        <children>
+          <grid id="7db57" binding="logoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="true">
+                <preferred-size width="-1" height="150"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="91c9e" class="javax.swing.JLabel" binding="loginTitleLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <font size="28"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <text value="PROJECT MANAGING APP"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="daba8" binding="loginDataPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="150"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="70aa5" binding="usernameDataInputPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="4c6b" class="javax.swing.JFormattedTextField" binding="usernameInputField">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="2" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="250" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="3d33f" class="javax.swing.JLabel" binding="usernameTextLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="80" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                      <text value="Username:"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="249d0" binding="passwordDataInputPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <visible value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a697e" class="javax.swing.JPasswordField" binding="passwordInputField">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="250" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <component id="259e4" class="javax.swing.JLabel" binding="passwordTextLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                        <preferred-size width="80" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                      <text value="Password:"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <component id="34f9b" class="javax.swing.JLabel" binding="wrongDataLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+              <grid id="980f3" binding="loginAndServerStatusWrapper" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="5aa09" binding="loginButtonPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="6427b" class="javax.swing.JButton" binding="loginButton">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="100" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <enabled value="true"/>
+                          <opaque value="true"/>
+                          <selected value="false"/>
+                          <text value="Login"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <hspacer id="7c69e">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="c89ac" binding="databaseStatusWrapper" layout-manager="GridLayoutManager" row-count="1" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none">
+          <color color="-16777216"/>
+        </border>
+        <children>
+          <grid id="d487c" binding="taskStatusPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="a9855" class="javax.swing.JLabel" binding="taskStatusLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="TASKS"/>
+                </properties>
+              </component>
+              <component id="9c03a" class="javax.swing.JLabel" binding="taskTableStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="6fa25" binding="userStatusPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="797b" class="javax.swing.JLabel" binding="userStatusLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="USERS"/>
+                </properties>
+              </component>
+              <component id="361c3" class="javax.swing.JLabel" binding="userTableStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="b4310" binding="teamStatusPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="86b44" class="javax.swing.JLabel" binding="teamStatusLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="TEAMS"/>
+                </properties>
+              </component>
+              <component id="5e759" class="javax.swing.JLabel" binding="teamTableStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="c4c43" binding="projectstatuspanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="575a3" class="javax.swing.JLabel" binding="projectStatusLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="PROJECTS"/>
+                </properties>
+              </component>
+              <component id="5c1a5" class="javax.swing.JLabel" binding="projectTableStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="51b66" binding="refButtonPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="empty">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="f7d24" class="javax.swing.JButton" binding="refreshStatusButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Refresh"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="266fd">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="20" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <vspacer id="ac20b">
+            <constraints>
+              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="20" height="-1"/>
+              </grid>
+            </constraints>
+          </vspacer>
+          <grid id="d9c3e" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="9583d" class="javax.swing.JLabel" binding="databaseStatusTitle">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="DATABASE STATUS"/>
+                </properties>
+              </component>
+              <component id="18d57" class="javax.swing.JLabel" binding="databaseStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ce421" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="50"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="line">
+              <color color="-16777216"/>
+            </border>
+            <children>
+              <component id="3b7d2" class="javax.swing.JLabel" binding="serverStatusTitle">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="SERVER STATUS"/>
+                </properties>
+              </component>
+              <component id="30ca3" class="javax.swing.JLabel" binding="serverStatusLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="STATUS N/A"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <hspacer id="a4807">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="20"/>
+          </grid>
+        </constraints>
+      </hspacer>
+    </children>
+  </grid>
+</form>
