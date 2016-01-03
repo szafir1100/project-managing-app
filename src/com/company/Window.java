@@ -19,7 +19,7 @@ public class Window extends JFrame implements OnFrameStateChangeListener {
         super("Project Managing Application");
         mFrameState = FrameState.LOGIN;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize(1000,600);
+        this.setSize(1150,700);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);

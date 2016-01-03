@@ -93,7 +93,7 @@ public class LoggedScreen {
     private JPanel projectManagementPanel;
     private JPanel projectManagementInputPanel;
     private JPanel addProjecPanel;
-    private JPanel deleteProjectLabel;
+    private JPanel deleteProjectPanel;
     private JPanel addProjectButtonPanel;
     private JPanel addProjectInputPanel;
     private JPanel deleteProjectButtonPanel;
@@ -107,7 +107,6 @@ public class LoggedScreen {
     private JPanel assignTeamManagerToTeamPanel;
     private JPanel addUserToTeamPanel;
     private JPanel deleteTeamPanel;
-    private JPanel removeUserFromTeamPanel;
     private JPanel addTeamButtonPanel;
     private JPanel addTeamInputPanel;
     private JTextField addTeamTextInput;
@@ -115,15 +114,12 @@ public class LoggedScreen {
     private JPanel assignTeamManagerToTeamButtonPanel;
     private JPanel assignTeamManagerToTeamInputPanel;
     private JPanel addUserToTeamButtonPanel;
-    private JButton addUserToTeamButton;
+    private JButton AssignDeveloperToTeamButton;
     private JPanel addUserToTeamInputPanel;
     private JPanel deleteTeamButtonPanel;
     private JButton deleteTeamButton;
     private JPanel deleteTeamInputPanel;
     private JButton deleteTeamDoneButton;
-    private JPanel removeUserFromTeamButtonPanel;
-    private JButton removeUserFromTeamButton;
-    private JPanel removeUserFromTeamInputPanel;
     private JButton removeUserFromTeamDoneButton;
     private JLabel adminPanelLogTitleLabel;
     private JPanel adminPanelLogPanel;
@@ -168,6 +164,17 @@ public class LoggedScreen {
     private JButton refreshDataButton;
     private JCheckBox deleteUserCheckBox;
     private JButton debugDatabaseButton;
+    private JComboBox assignDeveloperToTeamTeamComboBox;
+    private JComboBox assignDeveloperToTeamDeveloperComboBox;
+    private JButton assignProjectToTeamButton;
+    private JComboBox assignProjectToTeamProjectComboBox;
+    private JComboBox assignProjectToTeamTeamComboBox;
+    private JButton assignProjectToTeamDoneButton;
+    private JPanel assignProjectToTeamComboBoxInputPanel;
+    private JPanel assignProjectToTeamComboBoxDoneButtonPanel;
+    private JPanel assignProjectToTeamInputPanel;
+    private JPanel assignProjectToTeamButtonPanel;
+    private JPanel assignProjectToTeamPanel;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -293,20 +300,12 @@ public class LoggedScreen {
                 setDeleteTeamInputAcces(true);
             }
         });
-        addUserToTeamButton.addActionListener(new ActionListener() {
+        AssignDeveloperToTeamButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
                 setAddUserToTeamInputAcces(true);
-            }
-        });
-        removeUserFromTeamButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                refreshData();
-                refreshAdminPanelButtonState();
-                setRemoveUserFromTeamInputAcces(true);
             }
         });
         assignTeamManagerToTeamButton.addActionListener(new ActionListener() {
@@ -315,6 +314,14 @@ public class LoggedScreen {
                 refreshData();
                 refreshAdminPanelButtonState();
                 setAssignTeamManagerToTeamInputAcces(true);
+            }
+        });
+        assignProjectToTeamButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                refreshData();
+                refreshAdminPanelButtonState();
+                setAssignProjectToTeamInputAccess(true);
             }
         });
 
@@ -690,8 +697,8 @@ public class LoggedScreen {
         setAddTeamInputAcces(false);
         setDeleteTeamInputAcces(false);
         setAddUserToTeamInputAcces(false);
-        setRemoveUserFromTeamInputAcces(false);
         setAssignTeamManagerToTeamInputAcces(false);
+        setAssignProjectToTeamInputAccess(false);
     }
 
     /**
@@ -756,6 +763,10 @@ public class LoggedScreen {
         deleteProjectComboBoxInput.setEnabled(isAccesible);
         deleteProjectDoneButton.setEnabled(isAccesible);
     }
+    private void setAssignProjectToTeamInputAccess(boolean isAccesible) {
+        assignProjectToTeamProjectComboBox.setEnabled(isAccesible);
+        assignProjectToTeamTeamComboBox.setEnabled(isAccesible);
+    }
     private void setAddTeamInputAcces(boolean isAccessible) {
         addTeamTextInput.setEnabled(isAccessible);
         addTeamDoneButton.setEnabled(isAccessible);
@@ -765,16 +776,13 @@ public class LoggedScreen {
         deleteTeamDoneButton.setEnabled(isAccessible);
     }
     private void setAddUserToTeamInputAcces(boolean isAccessible) {
-        addUserToTeamComboBoxInput.setEnabled(isAccessible);
+        assignDeveloperToTeamDeveloperComboBox.setEnabled(isAccessible);
+        assignDeveloperToTeamTeamComboBox.setEnabled(isAccessible);
         addUserToTeamDoneButton.setEnabled(isAccessible);
-    }
-    private void setRemoveUserFromTeamInputAcces(boolean isAccessible) {
-        removeUserFromTeamComboBoxInput.setEnabled(isAccessible);
-        removeUserFromTeamDoneButton.setEnabled(isAccessible);
     }
     private void setAssignTeamManagerToTeamInputAcces(boolean isAccessible) {
         assignTeamManagerToTeamTeamSelectionComboBoxInput.setEnabled(isAccessible);
         assignTeamManagerToTeamUserSelectionComboBoxInput.setEnabled(isAccessible);
-        assignTeamManagerToTeamDoneButton.setEnabled(isAccessible);
+        assignProjectToTeamDoneButton.setEnabled(isAccessible);
     }
 }
