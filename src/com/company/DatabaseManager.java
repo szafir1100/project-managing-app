@@ -346,7 +346,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 
     private boolean useDatabase() {

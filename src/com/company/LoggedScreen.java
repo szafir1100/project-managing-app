@@ -498,7 +498,20 @@ public class LoggedScreen {
         comboBoxesWithNoConditionColumnListInit(deleteTeamComboBoxInput, "teamtable", "teamname");
         comboBoxesWithNoConditionColumnListInit(deleteTaskInputComboBox, "tasktable", "taskname");
 
+        comboBoxesWithConditionColumnListInit(developerManagementTaskInputComboBox, "usertable", "username", "privilegelvl", "DEVELOPER");
+        comboBoxesWithNoConditionColumnListInit(developerManagementDeveloperInputComboBox, "tasktable", "taskname");
 
+        comboBoxesWithConditionColumnListInit(assignDeveloperToTeamDeveloperComboBox, "usertable", "username", "privilegelvl", "DEVELOPER");
+        comboBoxesWithNoConditionColumnListInit(assignDeveloperToTeamTeamComboBox, "teamtable", "teamname");
+
+        comboBoxesWithNoConditionColumnListInit(assignProjectToTeamProjectComboBox, "projecttable", "projectname");
+        comboBoxesWithNoConditionColumnListInit(assignProjectToTeamTeamComboBox, "teamtable", "teamname");
+
+        comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
+        comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
+
+
+        //todo kod wypelniajacy reszte combosow
     }
 
     private void mainInitialize() {
@@ -526,6 +539,18 @@ public class LoggedScreen {
         changeUserSettingsAccesLvlComboBoxInput.addItem(tmanager);
         changeUserSettingsAccesLvlComboBoxInput.addItem(admin);
     }
+
+    private void comboBoxesWithConditionColumnListInit(JComboBox comboBox, String table, String selectingColumn, String conditionColumn, String conditionValue) {
+        comboBox.removeAllItems();
+
+        ArrayList<String> arrayList = onDatabaseActionListener.getArrayListOfTableColumnSetWithCondition
+                (table, selectingColumn, conditionColumn, conditionValue);
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            comboBox.addItem(arrayList.get(i));
+        }
+    }
+
 
     /**
      * used to fill comboBoxes with one specified table's column data
