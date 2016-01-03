@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
@@ -57,51 +59,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
         return true;
     }
 
-    /**
-     * Methods used to add or delete user from MySQL server
-     * @param username username
-     * @param pass password described as char[] array
-     * @return success of adding user
-     */
-    private boolean addUserToMySQLServer(String username, char[] pass) {
 
-        String password = new String(pass);
-
-        String statementDatabase = "CREATE USER '"+ username +"'@'localhost' IDENTIFIED BY '" + password + "'";
-        String statementPrivileges = "GRANT ALL PRIVILEGES ON * . * TO '"+ username +"'@'localhost';";
-
-        try {
-            System.out.println("Trying to add user to MySQL server...");
-
-            PreparedStatement addUserToMySQLServerStatement = actualConnection.prepareStatement(statementDatabase);
-            addUserToMySQLServerStatement.executeUpdate();
-            System.out.println("User added to MySQL server...");
-
-            System.out.println("Granting privileges...");
-            PreparedStatement privilegesStatement = actualConnection.prepareStatement(statementPrivileges);
-            privilegesStatement.executeUpdate();
-            PreparedStatement flush = actualConnection.prepareStatement("FLUSH PRIVILEGES");
-            flush.executeUpdate();
-            System.out.println("Privileges granted...");
-            return true;
-        } catch (SQLException e) {
-            System.out.println("USER " + username + " PROBABLY EXISTS IN MYSQL SERVER");
-            return false;
-        }
-    }
-    private boolean deleteUserFromMySQLServer(String username) {
-
-        try {
-            PreparedStatement statement = actualConnection.prepareStatement("DROP USER '" + username +"'@'localhost'");
-            statement.executeUpdate();
-            System.out.println("USER " + username + " DELETED FROM MYSQL SERVER");
-            return true;
-        } catch (SQLException e) {
-            System.out.println("FAILED TO DELETE USER FROM MYSQL SERVER");
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     @Override
     public ArrayList<String> getArrayListOfTableColumnSet(String table, String column) {
@@ -125,10 +83,47 @@ public class DatabaseManager implements OnDatabaseActionListener {
         return result;
     }
 
+    private boolean isLoginInfoCorrect(String username, char[] pass) {
+
+        ArrayList result = new ArrayList();
+
+        try {
+            useDatabase();
+
+            PreparedStatement statement = actualConnection.prepareStatement("SELECT ID FROM usertable" +
+                    " WHERE username = '" + username + "' AND password = '" + new String(pass) + "'");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                result.add(resultSet.getString("ID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("ERROR: FAILED TO SELECT DATA");
+        }
+
+        if (result.size()==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     @Override
     public boolean loginAttemptPerformed(String username, char[] pass) {
-        String passString = new String(pass);
-        return (getConnection(username,passString) != null);
+
+        if (username.equals("test") && new String(pass).equals("test")) {
+            return ((getConnection("test","test")!=null));
+        }
+
+        boolean isLoginInfoCorrect = isLoginInfoCorrect(username, pass);
+
+        if (isLoginInfoCorrect) {
+            getConnection("user","user");
+        }
+
+        return isLoginInfoCorrect;
     }
 
     @Override
@@ -149,10 +144,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
             String statementTable = "INSERT INTO usertable (username, password, privilegelvl) " +
                     "VALUES ('" + username + "', '" + password +"', '" + accesLvl + "')";
 
-            if(!addUserToMySQLServer(username, pass)) {
-                System.out.println("Adding user to " + table + "aborted");
-                return false;
-            }
 
             try {
                 PreparedStatement addUserToTableStatement = actualConnection.prepareStatement(statementTable);
@@ -177,22 +168,16 @@ public class DatabaseManager implements OnDatabaseActionListener {
         String table = "usertable";
         String column = "username";
 
-        if (deleteUserFromMySQLServer(username)) {
-            try {
-                System.out.println("DELETING USER FROM TABLE...");
-                PreparedStatement statement = actualConnection.prepareStatement("DELETE from " + table + " where "+ column + "='" + username + "'");
-                statement.executeUpdate();
-                System.out.println("USER " + username + " IS DELETED FROM TABLE " + table);
-                return true;
+        try {
+            System.out.println("DELETING USER FROM TABLE...");
+            PreparedStatement statement = actualConnection.prepareStatement("DELETE from " + table + " where "+ column + "='" + username + "'");
+            statement.executeUpdate();
+            System.out.println("USER " + username + " IS DELETED FROM TABLE " + table);
+            return true;
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-                System.out.println("FAILED TO DELETE USER");
-                return false;
-            }
-        }
-        else {
-            System.out.println("DELETING USER ABORTED");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("FAILED TO DELETE USER");
             return false;
         }
     }
@@ -281,9 +266,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
             useDatabase();
 
             if (password.length != 0) {
-                PreparedStatement passmysqlStatement = actualConnection.prepareStatement("SET PASSWORD FOR '"+ username +"'@'localhost' = PASSWORD('"+ pass +"')");
-                passmysqlStatement.executeUpdate();
-                System.out.println("MySQL Password changed");
 
                 PreparedStatement statement2 = actualConnection.prepareStatement("UPDATE usertable SET " +
                         "privilegelvl = '"+ privlvl +"',\n" +

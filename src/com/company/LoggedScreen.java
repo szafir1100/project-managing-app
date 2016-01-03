@@ -502,10 +502,6 @@ public class LoggedScreen {
             chosenProjectLabel.setText("NO PROJECT CHOSEN");
         }
 
-        if (mLoggedUsername.equals("root")) {
-            addUserButton.setEnabled(true);
-            changeUserSettingsButton.setEnabled(true);
-        }
         refreshData();
         userPrivilegesComboBoxInit();
     }

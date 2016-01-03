@@ -207,12 +207,10 @@ public class LoginScreen{
      */
     private void login(String username, char[] password) {
 
-
-        //If server connection is OK, its possible to log to "root" account to make "debug database" process
-        if (checkLoginPreparingStatus() || username.equals("root")) {
-            if (onDatabaseActionListener.loginAttemptPerformed(username, password)) {
-                String stringPass = new String(password);
-                onFrameStateChangeListener.frameStateChanged(Window.FrameState.LOGGED, username, stringPass);
+        //If server connection is OK, its possible to log to "debug" account to make "debug database" process
+        if (username.equals("debug") || checkLoginPreparingStatus()) {  //TODO Add password for debug mode
+            if (username.equals("debug") || onDatabaseActionListener.loginAttemptPerformed(username, password)) {
+                onFrameStateChangeListener.frameStateChanged(Window.FrameState.LOGGED, username, new String(password));
             }
             else {
                 wrongDataLabel.setText("WRONG USERNAME OR PASSWORD");

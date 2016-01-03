@@ -14,7 +14,6 @@ public class Window extends JFrame implements OnFrameStateChangeListener {
     public enum FrameState {LOGIN, LOGGED}
     private FrameState mFrameState;
     private String mLoggedUsername;
-    private String mLoggedPassword;
 
     public Window () {
         super("Project Managing Application");
@@ -59,7 +58,6 @@ public class Window extends JFrame implements OnFrameStateChangeListener {
     public void frameStateChanged(FrameState frameState, String loggedUsername, String loggedPassword) {
         mFrameState = frameState;
         mLoggedUsername = loggedUsername;
-        mLoggedPassword = loggedPassword;
         framework();
     }
 
