@@ -214,7 +214,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshUserPanelButtonState();
-                setDevAssignInputAcces(true);
+                setDevAssignInputAccess(true);
             }
         });
         addWorktimeButton.addActionListener(new ActionListener() {
@@ -222,7 +222,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshUserPanelButtonState();
-                setAddWorktimeInputAcces(true);
+                setAddWorktimeInputAccess(true);
             }
         });
         setTotalProjectWorktimeButton.addActionListener(new ActionListener() {
@@ -230,7 +230,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshUserPanelButtonState();
-                setSetTotalProjectWorktimeInputAcces(true);
+                setSetTotalProjectWorktimeInputAccess(true);
             }
         });
         addTaskButton.addActionListener(new ActionListener() {
@@ -238,7 +238,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshUserPanelButtonState();
-                setAddTaskInputAcces(true);
+                setAddTaskInputAccess(true);
             }
         });
         deleteTaskButton.addActionListener(new ActionListener() {
@@ -246,7 +246,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshUserPanelButtonState();
-                setDeleteTaskInputAcces(true);
+                setDeleteTaskInputAccess(true);
             }
         });
 
@@ -256,7 +256,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setAddUserInputAcces(true);
+                setAddUserInputAccess(true);
             }
         });
         changeUserSettingsButton.addActionListener(new ActionListener() {
@@ -272,7 +272,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setAddProjectInputAcces(true);
+                setAddProjectInputAccess(true);
             }
         });
         deleteProjectButton.addActionListener(new ActionListener() {
@@ -280,7 +280,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setDeleteProjectInputAcces(true);
+                setDeleteProjectInputAccess(true);
 
             }
         });
@@ -289,7 +289,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setAddTeamInputAcces(true);
+                setAddTeamInputAccess(true);
             }
         });
         deleteTeamButton.addActionListener(new ActionListener() {
@@ -297,7 +297,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setDeleteTeamInputAcces(true);
+                setDeleteTeamInputAccess(true);
             }
         });
         AssignDeveloperToTeamButton.addActionListener(new ActionListener() {
@@ -305,7 +305,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setAddUserToTeamInputAcces(true);
+                setAssignUserToTeamInputAccess(true);
             }
         });
         assignTeamManagerToTeamButton.addActionListener(new ActionListener() {
@@ -313,7 +313,7 @@ public class LoggedScreen {
             public void actionPerformed(ActionEvent e) {
                 refreshData();
                 refreshAdminPanelButtonState();
-                setAssignTeamManagerToTeamInputAcces(true);
+                setAssignTeamManagerToTeamInputAccess(true);
             }
         });
         assignProjectToTeamButton.addActionListener(new ActionListener() {
@@ -683,21 +683,21 @@ public class LoggedScreen {
      * Method that sets all input panels components disabled
      */
     private void refreshUserPanelButtonState() {
-        setDevAssignInputAcces(false);
-        setAddWorktimeInputAcces(false);
-        setAddTaskInputAcces(false);
-        setDeleteTaskInputAcces(false);
-        setSetTotalProjectWorktimeInputAcces(false);
+        setDevAssignInputAccess(false);
+        setAddWorktimeInputAccess(false);
+        setAddTaskInputAccess(false);
+        setDeleteTaskInputAccess(false);
+        setSetTotalProjectWorktimeInputAccess(false);
     }
     private void refreshAdminPanelButtonState() {
-        setAddUserInputAcces(false);
+        setAddUserInputAccess(false);
         setChangeUserSettings(false);
-        setAddProjectInputAcces(false);
-        setDeleteProjectInputAcces(false);
-        setAddTeamInputAcces(false);
-        setDeleteTeamInputAcces(false);
-        setAddUserToTeamInputAcces(false);
-        setAssignTeamManagerToTeamInputAcces(false);
+        setAddProjectInputAccess(false);
+        setDeleteProjectInputAccess(false);
+        setAddTeamInputAccess(false);
+        setDeleteTeamInputAccess(false);
+        setAssignUserToTeamInputAccess(false);
+        setAssignTeamManagerToTeamInputAccess(false);
         setAssignProjectToTeamInputAccess(false);
     }
 
@@ -706,33 +706,33 @@ public class LoggedScreen {
      * @param isAccessible the state of accessibility of specified panel input components
      */
     // for User Panel
-    private void setDevAssignInputAcces(boolean isAccessible) {
+    private void setDevAssignInputAccess(boolean isAccessible) {
         developerManagementTaskInputComboBox.setEnabled(isAccessible);
         developerManagementDeveloperInputComboBox.setEnabled(isAccessible);
         developerManagementDoneButton.setEnabled(isAccessible);
     }
-    private void setAddWorktimeInputAcces(boolean isAccessible) {
+    private void setAddWorktimeInputAccess(boolean isAccessible) {
         workTimeTaskInputComboBox.setEnabled(isAccessible);
         worktimeSpinner.setEnabled(isAccessible);
         worktimeDoneButton.setEnabled(isAccessible);
 
     }
-    private void setAddTaskInputAcces(boolean isAccessible) {
+    private void setAddTaskInputAccess(boolean isAccessible) {
         addTaskInputTextField.setEnabled(isAccessible);
         addTaskDoneButton.setEnabled(isAccessible);
     }
-    private void setDeleteTaskInputAcces(boolean isAccessible) {
+    private void setDeleteTaskInputAccess(boolean isAccessible) {
         deleteTaskInputComboBox.setEnabled(isAccessible);
         deleteTaskDoneButton.setEnabled(isAccessible);
     }
-    private void setSetTotalProjectWorktimeInputAcces (boolean isAccessible) {
+    private void setSetTotalProjectWorktimeInputAccess(boolean isAccessible) {
         setTotalProjectWorktimeComboBox.setEnabled(isAccessible);
         setTotalProjectWorktimeSpinner.setEnabled(isAccessible);
         setTotalProjectWorktimeDoneButton.setEnabled(isAccessible);
     }
 
     // for Admin Panel
-    private void setAddUserInputAcces(boolean isAccessible) {
+    private void setAddUserInputAccess(boolean isAccessible) {
         addUserLoginTextInput.setEnabled(isAccessible);
         addUserPasswordInput.setEnabled(isAccessible);
         addUserSetVisibleCheckBox.setEnabled(isAccessible);
@@ -755,11 +755,11 @@ public class LoggedScreen {
             changeUserSettingsAccesLvlComboBoxInput.setEnabled(isAccessible);
         }
     }
-    private void setAddProjectInputAcces(boolean isAccessible) {
+    private void setAddProjectInputAccess(boolean isAccessible) {
         addProjectTextInput.setEnabled(isAccessible);
         addProjectDoneButton.setEnabled(isAccessible);
     }
-    private void setDeleteProjectInputAcces(boolean isAccesible) {
+    private void setDeleteProjectInputAccess(boolean isAccesible) {
         deleteProjectComboBoxInput.setEnabled(isAccesible);
         deleteProjectDoneButton.setEnabled(isAccesible);
     }
@@ -767,20 +767,20 @@ public class LoggedScreen {
         assignProjectToTeamProjectComboBox.setEnabled(isAccesible);
         assignProjectToTeamTeamComboBox.setEnabled(isAccesible);
     }
-    private void setAddTeamInputAcces(boolean isAccessible) {
+    private void setAddTeamInputAccess(boolean isAccessible) {
         addTeamTextInput.setEnabled(isAccessible);
         addTeamDoneButton.setEnabled(isAccessible);
     }
-    private void setDeleteTeamInputAcces(boolean isAccessible) {
+    private void setDeleteTeamInputAccess(boolean isAccessible) {
         deleteTeamComboBoxInput.setEnabled(isAccessible);
         deleteTeamDoneButton.setEnabled(isAccessible);
     }
-    private void setAddUserToTeamInputAcces(boolean isAccessible) {
+    private void setAssignUserToTeamInputAccess(boolean isAccessible) {
         assignDeveloperToTeamDeveloperComboBox.setEnabled(isAccessible);
         assignDeveloperToTeamTeamComboBox.setEnabled(isAccessible);
         addUserToTeamDoneButton.setEnabled(isAccessible);
     }
-    private void setAssignTeamManagerToTeamInputAcces(boolean isAccessible) {
+    private void setAssignTeamManagerToTeamInputAccess(boolean isAccessible) {
         assignTeamManagerToTeamTeamSelectionComboBoxInput.setEnabled(isAccessible);
         assignTeamManagerToTeamUserSelectionComboBoxInput.setEnabled(isAccessible);
         assignProjectToTeamDoneButton.setEnabled(isAccessible);
