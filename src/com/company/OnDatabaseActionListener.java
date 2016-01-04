@@ -77,6 +77,18 @@ public interface OnDatabaseActionListener {
      */
     boolean changeUserData(String username, char[] password, String privilegeLvl);
 
+    /**
+     * Method used for copying specific data to table with condition
+     * usable at assign users to tasks etc.
+     * params' examples points for Assigning developer to team functions
+     * @param pasteTable name of table to paste data to i.e. usertable
+     * @param pasteColumn name of column to paste data to i.e teammember
+     * @param pasteData String representation of data to paste i.e TEAM1
+     * @param conditionColumn name of condition column i.e. username
+     * @param conditionData String representation of condition data i.e DEV1
+     */
+    boolean insertAssignData(String pasteTable, String pasteColumn, String pasteData, String conditionColumn,
+                                           String conditionData);
 
     /**
      * Methods used to check database's tables' status on login screen

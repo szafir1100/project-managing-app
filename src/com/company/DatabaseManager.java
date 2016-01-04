@@ -290,6 +290,20 @@ public class DatabaseManager implements OnDatabaseActionListener {
     }
 
     @Override
+    public boolean insertAssignData(String pasteTable, String pasteColumn, String pasteData, String conditionColumn,
+                             String conditionData) {
+        try {
+            PreparedStatement statement = actualConnection.prepareStatement("UPDATE " + pasteTable + " SET " +
+                    pasteColumn + " = '" + pasteData+ "'" +
+                    "WHERE " + conditionColumn + " = '" + conditionData + "'");
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    @Override
     public boolean isThereTable(String tableName) {
 
         try {

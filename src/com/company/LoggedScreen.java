@@ -153,7 +153,7 @@ public class LoggedScreen {
     private JLabel changeUserSettingsAccesLvlLabel;
     private JButton changeUserSettingsDoneButton;
     private JComboBox addUserToTeamComboBoxInput;
-    private JButton addUserToTeamDoneButton;
+    private JButton assignDevToTeamDoneButton;
     private JComboBox deleteProjectComboBoxInput;
     private JComboBox deleteTeamComboBoxInput;
     private JComboBox removeUserFromTeamComboBoxInput;
@@ -490,6 +490,13 @@ public class LoggedScreen {
                 refreshData();
             }
         });
+
+        assignDevToTeamDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                assignDeveloperToTeam();
+            }
+        });
     }
 
     private void refreshData() {
@@ -506,7 +513,6 @@ public class LoggedScreen {
 
         comboBoxesWithNoConditionColumnListInit(assignProjectToTeamProjectComboBox, "projecttable", "projectname");
         comboBoxesWithNoConditionColumnListInit(assignProjectToTeamTeamComboBox, "teamtable", "teamname");
-
         comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
         comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
 
@@ -791,6 +797,7 @@ public class LoggedScreen {
     private void setAssignProjectToTeamInputAccess(boolean isAccesible) {
         assignProjectToTeamProjectComboBox.setEnabled(isAccesible);
         assignProjectToTeamTeamComboBox.setEnabled(isAccesible);
+        assignProjectToTeamDoneButton.setEnabled(isAccesible);
     }
     private void setAddTeamInputAccess(boolean isAccessible) {
         addTeamTextInput.setEnabled(isAccessible);
@@ -803,11 +810,25 @@ public class LoggedScreen {
     private void setAssignUserToTeamInputAccess(boolean isAccessible) {
         assignDeveloperToTeamDeveloperComboBox.setEnabled(isAccessible);
         assignDeveloperToTeamTeamComboBox.setEnabled(isAccessible);
-        addUserToTeamDoneButton.setEnabled(isAccessible);
+        assignDevToTeamDoneButton.setEnabled(isAccessible);
     }
     private void setAssignTeamManagerToTeamInputAccess(boolean isAccessible) {
         assignTeamManagerToTeamTeamSelectionComboBoxInput.setEnabled(isAccessible);
         assignTeamManagerToTeamUserSelectionComboBoxInput.setEnabled(isAccessible);
         assignProjectToTeamDoneButton.setEnabled(isAccessible);
+    }
+
+
+    private void assignDeveloperToTeam() {
+
+        if(onDatabaseActionListener.insertAssignData("usertable", "teammember",
+                assignDeveloperToTeamTeamComboBox.getSelectedItem().toString(),"username",
+                assignDeveloperToTeamDeveloperComboBox.getSelectedItem().toString())) {
+
+            System.out.println("DEV ASSIGNED TO TEAM");
+        }
+        else {
+            System.out.println("FAIL TO ASSIGN DEV TO TEAM");
+        }
     }
 }
