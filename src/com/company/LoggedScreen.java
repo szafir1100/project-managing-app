@@ -22,9 +22,9 @@ public class LoggedScreen {
     private JSpinner worktimeSpinner;
     private JComboBox workTimeTaskInputComboBox;
     private JButton assignDeveloperButton;
+    private JComboBox developerManagementDevInputComboBox;
     private JComboBox developerManagementTaskInputComboBox;
-    private JComboBox developerManagementDeveloperInputComboBox;
-    private JButton developerManagementDoneButton;
+    private JButton assignDevToTaskDoneButton;
     private JButton addTaskButton;
     private JButton addTaskDoneButton;
     private JFormattedTextField addTaskInputTextField;
@@ -497,6 +497,27 @@ public class LoggedScreen {
                 assignDeveloperToTeam();
             }
         });
+
+        assignProjectToTeamDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                assignProjectToTeam();
+            }
+        });
+
+        assignTeamManagerToTeamDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                assignTeamManagerToTeam();
+            }
+        });
+
+        assignDevToTaskDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                assignDeveloperToTask();
+            }
+        });
     }
 
     private void refreshData() {
@@ -505,8 +526,8 @@ public class LoggedScreen {
         comboBoxesWithNoConditionColumnListInit(deleteTeamComboBoxInput, "teamtable", "teamname");
         comboBoxesWithNoConditionColumnListInit(deleteTaskInputComboBox, "tasktable", "taskname");
 
-        comboBoxesWithConditionColumnListInit(developerManagementTaskInputComboBox, "usertable", "username", "privilegelvl", "DEVELOPER");
-        comboBoxesWithNoConditionColumnListInit(developerManagementDeveloperInputComboBox, "tasktable", "taskname");
+        comboBoxesWithConditionColumnListInit(developerManagementDevInputComboBox, "usertable", "username", "privilegelvl", "DEVELOPER");
+        comboBoxesWithNoConditionColumnListInit(developerManagementTaskInputComboBox, "tasktable", "taskname");
 
         comboBoxesWithConditionColumnListInit(assignDeveloperToTeamDeveloperComboBox, "usertable", "username", "privilegelvl", "DEVELOPER");
         comboBoxesWithNoConditionColumnListInit(assignDeveloperToTeamTeamComboBox, "teamtable", "teamname");
@@ -738,9 +759,9 @@ public class LoggedScreen {
      */
     // for User Panel
     private void setDevAssignInputAccess(boolean isAccessible) {
+        developerManagementDevInputComboBox.setEnabled(isAccessible);
         developerManagementTaskInputComboBox.setEnabled(isAccessible);
-        developerManagementDeveloperInputComboBox.setEnabled(isAccessible);
-        developerManagementDoneButton.setEnabled(isAccessible);
+        assignDevToTaskDoneButton.setEnabled(isAccessible);
     }
     private void setAddWorktimeInputAccess(boolean isAccessible) {
         workTimeTaskInputComboBox.setEnabled(isAccessible);
@@ -815,7 +836,7 @@ public class LoggedScreen {
     private void setAssignTeamManagerToTeamInputAccess(boolean isAccessible) {
         assignTeamManagerToTeamTeamSelectionComboBoxInput.setEnabled(isAccessible);
         assignTeamManagerToTeamUserSelectionComboBoxInput.setEnabled(isAccessible);
-        assignProjectToTeamDoneButton.setEnabled(isAccessible);
+        assignTeamManagerToTeamDoneButton.setEnabled(isAccessible);
     }
 
 
@@ -829,6 +850,43 @@ public class LoggedScreen {
         }
         else {
             System.out.println("FAIL TO ASSIGN DEV TO TEAM");
+        }
+    }
+    private void assignProjectToTeam() {
+
+        if (onDatabaseActionListener.insertAssignData("projecttable", "projectteam",
+                assignProjectToTeamTeamComboBox.getSelectedItem().toString(), "projectname",
+                assignProjectToTeamProjectComboBox.getSelectedItem().toString())) {
+
+            System.out.println("PROJECT ASSIGNED TO TEAM");
+        }
+        else {
+            System.out.println("FAIL TO ASSIGN PROJECT TO TEAM");
+        }
+
+    }
+
+    private void assignTeamManagerToTeam() {
+        if(onDatabaseActionListener.insertAssignData("usertable", "teammember",
+                assignTeamManagerToTeamTeamSelectionComboBoxInput.getSelectedItem().toString(),"username",
+                assignTeamManagerToTeamUserSelectionComboBoxInput.getSelectedItem().toString())) {
+
+            System.out.println("TMANAGER ASSIGNED TO TEAM");
+        }
+        else {
+            System.out.println("FAIL TO ASSIGN TMANAGER TO TEAM");
+        }
+    }
+
+    private void assignDeveloperToTask() {
+        if(onDatabaseActionListener.insertAssignData("tasktable", "taskdeveloper",
+                developerManagementDevInputComboBox.getSelectedItem().toString(),"taskname",
+                developerManagementTaskInputComboBox.getSelectedItem().toString())) {
+
+            System.out.println("TASK ASSIGNED TO DEV");
+        }
+        else {
+            System.out.println("FAIL TO ASSIGN TASK TO DEV");
         }
     }
 }

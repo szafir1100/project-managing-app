@@ -272,7 +272,7 @@
                         </properties>
                         <border type="none"/>
                         <children>
-                          <component id="394f6" class="javax.swing.JButton" binding="developerManagementDoneButton">
+                          <component id="394f6" class="javax.swing.JButton" binding="assignDevToTaskDoneButton">
                             <constraints>
                               <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -281,7 +281,7 @@
                               <text value="Done"/>
                             </properties>
                           </component>
-                          <component id="1f97e" class="javax.swing.JComboBox" binding="developerManagementTaskInputComboBox">
+                          <component id="1f97e" class="javax.swing.JComboBox" binding="developerManagementDevInputComboBox">
                             <constraints>
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false">
                                 <preferred-size width="280" height="-1"/>
@@ -291,7 +291,7 @@
                               <enabled value="false"/>
                             </properties>
                           </component>
-                          <component id="1e55c" class="javax.swing.JComboBox" binding="developerManagementDeveloperInputComboBox">
+                          <component id="1e55c" class="javax.swing.JComboBox" binding="developerManagementTaskInputComboBox">
                             <constraints>
                               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="4" fill="0" indent="0" use-parent-layout="false">
                                 <preferred-size width="280" height="-1"/>
