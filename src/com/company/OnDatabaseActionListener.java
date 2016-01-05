@@ -36,7 +36,16 @@ public interface OnDatabaseActionListener {
      */
     ArrayList<String> getArrayListOfTableColumnSetWithCondition(String table, String selectingColumn, String conditionColumn, String conditionValue);
 
-
+    /**
+     * Method used to acces single data with condition i.e. accesing logged user's privilege lvl etc.
+     * Similar to getArrayListOfTableColumnSetWithCondition method, but returns String instead of ArrayList of Strings
+     * @param table name of table to get data from i.e. "usertable"
+     * @param selectingColumn name of column to select data from i.e. "privlegelvl"
+     * @param conditionValue single data of selecting column to get his conditionColumn data from i.e. "TMANAGER1"
+     * @param conditionColumn name of column to get data from i.e. "username"
+     * @return String representation of data, returns null if there is no such data.
+     */
+    String getSingleDataWithCondition(String table, String selectingColumn, String conditionColumn, String conditionValue);
     /**
      * Adds user to MySQL server and table
      * @param username username of User

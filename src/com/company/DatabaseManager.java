@@ -303,6 +303,12 @@ public class DatabaseManager implements OnDatabaseActionListener {
         }
     }
 
+    /*
+    @Override
+    public boolean addTimeToTask(int hours) {
+    }
+    */ //TODO Add instead of set
+
     @Override
     public boolean isThereTable(String tableName) {
 
@@ -359,6 +365,34 @@ public class DatabaseManager implements OnDatabaseActionListener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public String getSingleDataWithCondition(String table, String selectingColumn, String conditionColumn, String conditionValue) {
+
+        useDatabase();
+
+        String result = null;
+
+        try {
+            PreparedStatement statement = actualConnection.prepareStatement("SELECT "+ selectingColumn +
+                    " FROM " + table + " WHERE "+ conditionColumn +"='" + conditionValue + "'");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                result = resultSet.getString(selectingColumn);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (result == null) {
+            System.out.println("Failed to get data");
+        }
+        else {
+           // System.out.println(selectingColumn + "data FROM table " + table + " access is OK" );
+           // System.out.println(conditionValue + "'s " + selectingColumn + " is " + result);
         }
         return result;
     }
@@ -462,7 +496,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
                             "taskname VARCHAR(255),\n" +
                             "taskdeveloper VARCHAR(255),\n" +
                             "taskproject VARCHAR(255),\n" +
-                            "tasktimecommited INT(255))");
+                            "tasktimecommited INT(255) DEFAULT '0')");
             statement.executeUpdate();
 
             System.out.println("Tasktable debugged");

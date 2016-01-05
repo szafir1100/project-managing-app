@@ -179,6 +179,8 @@ public class LoggedScreen {
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
     String mLoggedUsername;
+    private String loggedUsernamePrivLvl;
+    private String loggedUsernameTeam;
 
     public LoggedScreen(OnFrameStateChangeListener listener, OnDatabaseActionListener listener2, String loggedUsername) {
 
@@ -223,6 +225,15 @@ public class LoggedScreen {
                 refreshData();
                 refreshUserPanelButtonState();
                 setAddWorktimeInputAccess(true);
+
+                ArrayList<String> tasklist = onDatabaseActionListener.getArrayListOfTableColumnSet("tasktable", "taskname");
+
+                for (int i = 0; i < tasklist.size(); i++) {
+
+                    if (getSelectedTaskDeveloper(tasklist.get(i)).equals(mLoggedUsername)) {
+                        workTimeTaskInputComboBox.addItem(tasklist.get(i));
+                    }
+                }
             }
         });
         setTotalProjectWorktimeButton.addActionListener(new ActionListener() {
@@ -231,6 +242,15 @@ public class LoggedScreen {
                 refreshData();
                 refreshUserPanelButtonState();
                 setSetTotalProjectWorktimeInputAccess(true);
+
+                ArrayList<String> projectList = onDatabaseActionListener.getArrayListOfTableColumnSet("projecttable", "projectname");
+
+                for (int i = 0; i < projectList.size(); i++) {
+
+                    if (getSelectedProjectTeam(projectList.get(i)).equals(getUserTeam())) {
+                        setTotalProjectWorktimeComboBox.addItem(projectList.get(i));
+                    }
+                }
             }
         });
         addTaskButton.addActionListener(new ActionListener() {
@@ -518,6 +538,36 @@ public class LoggedScreen {
                 assignDeveloperToTask();
             }
         });
+
+        setTotalProjectWorktimeDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                int spinnerValue = ((Integer) setTotalProjectWorktimeSpinner.getValue());
+                setTotalProjectWorktime(spinnerValue, setTotalProjectWorktimeComboBox.getSelectedItem().toString());
+            }
+        });
+
+
+        worktimeDoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String selectedTaskName = workTimeTaskInputComboBox.getSelectedItem().toString();
+
+                int selectedTaskTime = getSelectedTaskWorktime(selectedTaskName);
+                int timeToAdd = ((Integer) worktimeSpinner.getValue());
+
+                if (selectedTaskTime != -1) {
+                    System.out.println("Time before update: " + selectedTaskTime);
+
+                    onDatabaseActionListener.insertAssignData("tasktable", "tasktimecommited", String.valueOf(selectedTaskTime+timeToAdd), "taskname", selectedTaskName);
+
+                    System.out.println("Added " + timeToAdd + " hours to " + selectedTaskName);
+                    System.out.println(selectedTaskName + " time commited is now " + (selectedTaskTime+timeToAdd));
+                  }
+            }
+        });
     }
 
     private void refreshData() {
@@ -537,11 +587,14 @@ public class LoggedScreen {
         comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
         comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
 
-
-        //todo kod wypelniajacy reszte combosow
+        setTotalProjectWorktimeComboBox.removeAllItems();
+        workTimeTaskInputComboBox.removeAllItems();
     }
 
     private void mainInitialize() {
+
+        getUserPrivLvl();
+        getUserTeam();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
 
@@ -889,4 +942,72 @@ public class LoggedScreen {
             System.out.println("FAIL TO ASSIGN TASK TO DEV");
         }
     }
+
+    private String getUserPrivLvl() {
+        String result = onDatabaseActionListener.getSingleDataWithCondition("usertable","privilegelvl","username",mLoggedUsername);
+
+        if (result != null) {
+            return result;
+        }
+        else {
+            return "ERROR!!!";
+        }
+    }
+
+    private String getUserTeam() {
+        String result = onDatabaseActionListener.getSingleDataWithCondition("usertable","teammember","username",mLoggedUsername);
+
+        if (result != null) {
+            return result;
+        }
+        else {
+            return "ERROR!!!";
+        }
+    }
+
+    private String getSelectedProjectTeam(String projectname) {
+        String result = onDatabaseActionListener.getSingleDataWithCondition("projecttable", "projectteam", "projectname", projectname);
+        if (result != null) {
+            return result;
+        }
+        else {
+            return "ERROR!!!";
+        }
+    }
+
+    private String getSelectedTaskDeveloper(String taskname) {
+        String result = onDatabaseActionListener.getSingleDataWithCondition("tasktable", "taskdeveloper", "taskname", taskname);
+        if (result != null) {
+            return result;
+        }
+        else {
+            return "ERROR!!!";
+        }
+    }
+
+    private int getSelectedTaskWorktime(String taskname) {
+        String result = onDatabaseActionListener.getSingleDataWithCondition("tasktable", "tasktimecommited", "taskname", taskname);
+        if (result != null) {
+            return Integer.parseInt(result);
+        }
+        else {
+            System.out.println("ERROR");
+            return -1;
+        }
+    }
+
+    private void setTotalProjectWorktime(int spinnerValue, String projectname) {
+
+        if (spinnerValue >= 0 & onDatabaseActionListener.insertAssignData("projecttable", "projecttotaleta", String.valueOf(spinnerValue), "projectname", projectname)) {
+            System.out.println("Project " + projectname + " worktime is set to " +spinnerValue);
+        }
+        else {
+            System.out.println("failed to set data");
+            if (spinnerValue < 0) {
+                System.out.println("Project time cant be less than 0");
+            }
+        }
+    }
+
+
 }
