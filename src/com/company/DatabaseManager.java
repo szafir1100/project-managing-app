@@ -303,12 +303,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
         }
     }
 
-    /*
-    @Override
-    public boolean addTimeToTask(int hours) {
-    }
-    */ //TODO Add instead of set
-
     @Override
     public boolean isThereTable(String tableName) {
 
@@ -388,7 +382,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
             e.printStackTrace();
         }
         if (result == null) {
-            System.out.println("Failed to get data");
+           // System.out.println("Failed to get data");
         }
         else {
            // System.out.println(selectingColumn + "data FROM table " + table + " access is OK" );
