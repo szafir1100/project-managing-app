@@ -604,9 +604,6 @@ public class LoggedScreen {
         comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
         comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
 
-        comboBoxesWithConditionColumnListInit(projectInfoProjectComboBox, "projecttable", "projectname", "projectteam", getUserTeam());
-        comboBoxesWithConditionColumnListInit(projectInfoTaskComboBox, "tasktable", "taskname", "taskdeveloper", mLoggedUsername);
-
         refreshProjectInfo();
         refreshTaskInfo();
 
@@ -615,12 +612,16 @@ public class LoggedScreen {
     }
     private void refreshProjectInfo() {
 
-        if (projectInfoProjectComboBox!= null) {
+        if (projectInfoProjectComboBox.getSelectedItem() != null) {
             chosenProjectLabel.setText("SELECTED PROJECT: " + projectInfoProjectComboBox.getSelectedItem().toString());
         }
         else {
             chosenProjectLabel.setText("ACTUAL PROJECT: THERE IS NO PROJECT TO DISPLAY");
         }
+
+        comboBoxesWithConditionColumnListInit(projectInfoProjectComboBox, "projecttable", "projectname", "projectteam", getUserTeam());
+        comboBoxesWithConditionColumnListInit(projectInfoTaskComboBox, "tasktable", "taskname", "taskdeveloper", mLoggedUsername);
+
 
         //TODO Refresh logów
 
