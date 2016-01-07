@@ -170,8 +170,8 @@ public class LoggedScreen {
     private JProgressBar projectProgress;
     private JLabel projectLogLabel;
     private JLabel taskLogLabel;
-    private JComboBox projectInfoTaskComboBox;
     private JComboBox projectInfoProjectComboBox;
+    private JComboBox projectInfoTaskComboBox;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -565,6 +565,21 @@ public class LoggedScreen {
                   }
             }
         });
+
+        projectInfoProjectComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                refreshProjectInfo();
+            }
+        });
+
+        projectInfoTaskComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                refreshTaskInfo();
+            }
+        });
+
     }
 
     private void refreshData() {
@@ -584,8 +599,32 @@ public class LoggedScreen {
         comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
         comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
 
+        comboBoxesWithConditionColumnListInit(projectInfoProjectComboBox, "projecttable", "projectname", "projectteam", getUserTeam());
+        comboBoxesWithConditionColumnListInit(projectInfoTaskComboBox, "tasktable", "taskname", "taskdeveloper", mLoggedUsername);
+
+        refreshProjectInfo();
+        refreshTaskInfo();
+
         setTotalProjectWorktimeComboBox.removeAllItems();
         workTimeTaskInputComboBox.removeAllItems();
+    }
+    private void refreshProjectInfo() {
+
+        if (projectInfoProjectComboBox!= null) {
+            chosenProjectLabel.setText("SELECTED PROJECT: " + projectInfoProjectComboBox.getSelectedItem().toString());
+        }
+        else {
+            chosenProjectLabel.setText("ACTUAL PROJECT: THERE IS NO PROJECT TO DISPLAY");
+        }
+
+        //TODO Refresh logów
+
+    }
+
+    private void refreshTaskInfo() {
+
+        //TODO Refresh logów
+
     }
 
     private void mainInitialize() {
@@ -594,7 +633,6 @@ public class LoggedScreen {
         getUserTeam();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
-        chosenProjectLabel.setText("ACTUAL PROJECT: THERE IS NO PROJECT TO DISPLAY");
 
         refreshData();
         userPrivilegesComboBoxInit();

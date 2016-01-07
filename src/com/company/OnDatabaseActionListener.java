@@ -25,7 +25,6 @@ public interface OnDatabaseActionListener {
     ArrayList<String> getArrayListOfTableColumnSet(String table, String column);
 
 
-    //TODO Uniwersalne???
     /**
      * Method used to get ArrayList of users with specified privilege level
      * @param table name of table for example "usertable"
