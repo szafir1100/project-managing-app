@@ -40,7 +40,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="4e135" binding="userAndProjectStatusPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="4e135" binding="userAndProjectStatusPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -48,7 +48,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="4ba45" binding="comboBoxAndUserInfoPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="4ba45" binding="comboBoxAndUserInfoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="true"/>
@@ -56,96 +56,6 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="bb1da" binding="projectInfoTeamInputPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="7253c" class="javax.swing.JComboBox" binding="projectInfoTeamInputComboBox">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
-                                <minimum-size width="150" height="-1"/>
-                                <preferred-size width="250" height="-1"/>
-                                <maximum-size width="300" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="3033" class="javax.swing.JLabel" binding="projectInfoTeamLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="65" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <text value="Teams:"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="bc5b4" binding="projectInfoProjectInputPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="71a21" class="javax.swing.JComboBox" binding="projectInfoProjectInputComboBox">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
-                                <minimum-size width="150" height="-1"/>
-                                <preferred-size width="250" height="-1"/>
-                                <maximum-size width="300" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="f455a" class="javax.swing.JLabel" binding="projectInfoTaskLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="65" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <text value="Tasks"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="761ae" binding="projectInfoTaskInputPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
-                        <constraints>
-                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="7ec4a" class="javax.swing.JComboBox" binding="projectInfoTaskInputComboBox">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
-                                <minimum-size width="150" height="-1"/>
-                                <preferred-size width="250" height="-1"/>
-                                <maximum-size width="300" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="fe81" class="javax.swing.JLabel" binding="projectInfoProjectLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="65" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <text value="Projects:"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
                       <grid id="f9a3e" binding="userInfoPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
@@ -166,10 +76,10 @@
                       </grid>
                     </children>
                   </grid>
-                  <grid id="b5436" binding="taskStatusPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="b5436" binding="taskStatusPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
@@ -179,20 +89,20 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="&lt;Chosen project name&gt;"/>
+                          <text value="ACTUAL PROJECT AND TASK INFO"/>
                         </properties>
                       </component>
-                      <grid id="5e65b" binding="projectStatusDualLogWithScrollsPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="5e65b" binding="projectStatusDualLogWithScrollsPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                         <border type="none"/>
                         <children>
                           <component id="a27ee" class="javax.swing.JList" binding="userLogList">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
                               </grid>
                             </constraints>
@@ -200,7 +110,7 @@
                           </component>
                           <component id="ad391" class="javax.swing.JList" binding="projectLogList">
                             <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
                               </grid>
                             </constraints>
@@ -210,18 +120,74 @@
                           </component>
                           <component id="b529a" class="javax.swing.JScrollBar" binding="userLogScrollBar">
                             <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties/>
                           </component>
                           <component id="cfd51" class="javax.swing.JScrollBar" binding="projectLogScrollBar">
                             <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties/>
                           </component>
+                          <component id="51bde" class="javax.swing.JLabel" binding="projectLogLabel">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <text value="PROJECT LOG"/>
+                            </properties>
+                          </component>
+                          <component id="bac04" class="javax.swing.JLabel" binding="taskLogLabel">
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <text value="TASK LOG"/>
+                            </properties>
+                          </component>
                         </children>
                       </grid>
+                      <component id="4857d" class="javax.swing.JProgressBar" binding="projectProgress">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="825be" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="true">
+                        <minimum-size width="250" height="-1"/>
+                        <preferred-size width="300" height="-1"/>
+                        <maximum-size width="350" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="a90b5" class="javax.swing.JComboBox" binding="projectInfoProjectComboBox">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="200" height="-1"/>
+                            <preferred-size width="280" height="-1"/>
+                            <maximum-size width="290" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="3e052" class="javax.swing.JComboBox" binding="projectInfoTaskComboBox">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <minimum-size width="200" height="-1"/>
+                            <preferred-size width="280" height="-1"/>
+                            <maximum-size width="290" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties/>
+                      </component>
                     </children>
                   </grid>
                 </children>

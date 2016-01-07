@@ -32,15 +32,7 @@ public class LoggedScreen {
     private JButton deleteTaskDoneButton;
     private JComboBox deleteTaskInputComboBox;
     private JPanel comboBoxAndUserInfoPanel;
-    private JPanel projectInfoTeamInputPanel;
-    private JLabel projectInfoTeamLabel;
-    private JComboBox projectInfoTeamInputComboBox;
-    private JPanel projectInfoProjectInputPanel;
-    private JLabel projectInfoTaskLabel;
     private JComboBox projectInfoProjectInputComboBox;
-    private JPanel projectInfoTaskInputPanel;
-    private JLabel projectInfoProjectLabel;
-    private JComboBox projectInfoTaskInputComboBox;
     private JPanel userInfoPanel;
     private JLabel usernameLabel;
     private JPanel taskStatusPanel;
@@ -175,6 +167,11 @@ public class LoggedScreen {
     private JPanel assignProjectToTeamInputPanel;
     private JPanel assignProjectToTeamButtonPanel;
     private JPanel assignProjectToTeamPanel;
+    private JProgressBar projectProgress;
+    private JLabel projectLogLabel;
+    private JLabel taskLogLabel;
+    private JComboBox projectInfoTaskComboBox;
+    private JComboBox projectInfoProjectComboBox;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -597,10 +594,7 @@ public class LoggedScreen {
         getUserTeam();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
-
-        if (projectInfoProjectInputComboBox.getSelectedItem() == null) {
-            chosenProjectLabel.setText("NO PROJECT CHOSEN");
-        }
+        chosenProjectLabel.setText("ACTUAL PROJECT: THERE IS NO PROJECT TO DISPLAY");
 
         refreshData();
         userPrivilegesComboBoxInit();
