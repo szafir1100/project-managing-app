@@ -37,11 +37,6 @@ public class LoggedScreen {
     private JLabel usernameLabel;
     private JPanel taskStatusPanel;
     private JLabel chosenProjectLabel;
-    private JPanel projectStatusDualLogWithScrollsPanel;
-    private JList userLogList;
-    private JList projectLogList;
-    private JScrollBar userLogScrollBar;
-    private JScrollBar projectLogScrollBar;
     private JPanel developerManagementPanel;
     private JPanel developerManagementAssignDeveloperButtonPanel;
     private JPanel developerManagementDualComboBoxAndDoneButtonPanel;
@@ -168,10 +163,20 @@ public class LoggedScreen {
     private JPanel assignProjectToTeamButtonPanel;
     private JPanel assignProjectToTeamPanel;
     private JProgressBar projectProgress;
-    private JLabel projectLogLabel;
-    private JLabel taskLogLabel;
     private JComboBox projectInfoProjectComboBox;
     private JComboBox projectInfoTaskComboBox;
+    private JPanel projectLogPanel;
+    private JList userLogList;
+    private JScrollBar userLogScrollBar;
+    private JLabel projectLogLabel;
+    private JPanel taskLogPanel;
+    private JList projectLogList;
+    private JScrollBar projectLogScrollBar;
+    private JLabel taskLogLabel;
+    private JList sessionLogList;
+    private JLabel sessionLogLabel;
+    private JScrollBar sessionLogScrollBar;
+    private JPanel sessionLogPanel;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
