@@ -594,8 +594,7 @@ public class LoggedScreen {
                 String logType = writeToLogLogTypeTextField.getText();
                 String logMessage = writeToLogLogMessageTextField.getText();
 
-                new Logger(logType, logMessage);
-            }
+                Logger.getInstance().logApplicationAction(logMessage);             }
         });
     }
 
