@@ -6,6 +6,9 @@
 .idea/
 # if you remove the above rule, at least ignore the following:
 
+# Log files: (will have another format later)
+*.txt
+
 # User-specific stuff:
 # .idea/workspace.xml
 # .idea/tasks.xml
