@@ -1,5 +1,7 @@
 package com.company;
 
+import sun.rmi.runtime.Log;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -213,11 +215,12 @@ public class LoginScreen{
                 onFrameStateChangeListener.frameStateChanged(Window.FrameState.LOGGED, username, new String(password));
             }
             else {
+                Logger.getInstance().logApplicationAction("ERROR: Incorrect username or password");
                 wrongDataLabel.setText("WRONG USERNAME OR PASSWORD");
             }
         }
         else {
-            System.out.println("SERVER OR DATABASE ISN'T CONNECTED");
+            Logger.getInstance().logApplicationAction("ERROR: Server or database are disconnected");
         }
     }
 }

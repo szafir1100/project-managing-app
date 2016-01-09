@@ -3,6 +3,10 @@ package com.company;
 import com.sun.istack.internal.Nullable;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by tomek on 09.01.16.
@@ -13,6 +17,7 @@ public class Logger {
     private static final String TASK_LOG_TAG = "T";
     private static final String PROJECT_LOG_TAG = "P";
     private static final String APP_LOG_TAG = "A";
+    private static final String ADMIN_LOG_TAG = "X";
 
     private static Logger singleton;
 
@@ -32,7 +37,6 @@ public class Logger {
             writer.write(formattedLog);
             writer.newLine();
             writer.close();
-            System.out.println("success");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +48,6 @@ public class Logger {
             writer.write(formattedLog);
             writer.newLine();
             writer.close();
-            System.out.println("success");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,24 +59,17 @@ public class Logger {
             writer.write(formattedLog);
             writer.newLine();
             writer.close();
-            System.out.println("success");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Writes log to .*txt file
-     * @param logMessage
-     */
-    private void writeToLogTest(String logMessage) {
-        String formattedLog = formatLog(APP_LOG_TAG, null, logMessage);
-
+    public void logAdminAction(String logMessage) {
+        String formattedLog = formatLog(ADMIN_LOG_TAG, null, logMessage);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, isThereLogFile(LOG_FILE_PATH)))) {
-            writer.write(logMessage);
+            writer.write(formattedLog);
             writer.newLine();
             writer.close();
-            System.out.println("success");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,9 +82,15 @@ public class Logger {
 
     private String formatLog(String symbol, @Nullable String name, String message) {
 
-        //todo kod formatujący
+        String result = "";
 
-        return message;
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss:SSS");
+        Date date = Calendar.getInstance().getTime();
+        String reportDate = df.format(date);
+
+        result += reportDate + ";" + symbol + ";" + name + "; -> " + message;
+        System.out.println(message);
+        return result;
     }
 
 }

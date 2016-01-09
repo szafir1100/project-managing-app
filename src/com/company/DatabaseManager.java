@@ -1,6 +1,7 @@
 package com.company;
 
 import com.sun.xml.internal.bind.v2.model.core.ID;
+import sun.rmi.runtime.Log;
 
 import java.awt.event.ActionEvent;
 import java.sql.*;
@@ -27,17 +28,16 @@ public class DatabaseManager implements OnDatabaseActionListener {
             String password = pass;
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url,username,password);
-            System.out.println(login + " Connected");
+            Logger.getInstance().logApplicationAction(login + " Connected");
             actualConnection = conn;
             return conn;
         } catch (ClassNotFoundException e) {
-            System.out.println("Connection Failed");
+            Logger.getInstance().logApplicationAction("Connection Failed");
             e.printStackTrace();
             return null;
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
-            System.out.println("Wrong username or password");
-           // e.printStackTrace();
+            Logger.getInstance().logApplicationAction("Connection Failed");
+            e.printStackTrace();
             return null;
         }
     }
@@ -78,7 +78,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("ERROR: FAILED TO SELECT DATA");
+            Logger.getInstance().logApplicationAction("ERROR: Failed  to select " + column + " data from " + table);
         }
         return result;
     }
@@ -99,7 +99,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("ERROR: FAILED TO SELECT DATA");
+            Logger.getInstance().logApplicationAction("ERROR: Failed to select data from database");
         }
 
         if (result.size()==0) {
@@ -138,8 +138,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
             String password = new String(pass);
 
             useDatabase();
-            System.out.println("Selected Database to modify...");
-
 
             String statementTable = "INSERT INTO usertable (username, password, privilegelvl) " +
                     "VALUES ('" + username + "', '" + password +"', '" + accesLvl + "')";
@@ -148,7 +146,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
             try {
                 PreparedStatement addUserToTableStatement = actualConnection.prepareStatement(statementTable);
                 addUserToTableStatement.executeUpdate();
-                System.out.println("User added to Table...");
                 return true;
 
             } catch (SQLException e) {
@@ -157,7 +154,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
             }
         }
         else {
-            System.out.println("User named " + username + " exists on table!");
+            Logger.getInstance().logAdminAction("ERROR: User " + username + " exists on table. Failed to add user to table " + table);
             return false;
         }
     }
@@ -169,15 +166,14 @@ public class DatabaseManager implements OnDatabaseActionListener {
         String column = "username";
 
         try {
-            System.out.println("DELETING USER FROM TABLE...");
             PreparedStatement statement = actualConnection.prepareStatement("DELETE from " + table + " where "+ column + "='" + username + "'");
             statement.executeUpdate();
-            System.out.println("USER " + username + " IS DELETED FROM TABLE " + table);
+            Logger.getInstance().logAdminAction("User " + username + " has been deleted from table " + table);
             return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("FAILED TO DELETE USER");
+            Logger.getInstance().logApplicationAction("ERROR: Failed  to delete user " + username);
             return false;
         }
     }
@@ -191,10 +187,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
             PreparedStatement statement = actualConnection.prepareStatement("INSERT INTO projecttable (projectname) " +
                     "VALUES ('" + projectname + "')");
             statement.executeUpdate();
-            System.out.println("Project added");
+            Logger.getInstance().logAdminAction("Project " + projectname + " is added to database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to add project");
+            Logger.getInstance().logAdminAction("ERROR: Failed to add project");
         }
     }
     @Override
@@ -203,10 +199,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
             PreparedStatement statement = actualConnection.prepareStatement("INSERT INTO tasktable (taskname) " +
                     "VALUES ('" + taskname + "')");
             statement.executeUpdate();
-            System.out.println("Task added");
+            Logger.getInstance().logAdminAction("Task " + taskname + " is added to database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to add task");
+            Logger.getInstance().logAdminAction("ERROR: Failed to add task");
         }
     }
     @Override
@@ -215,10 +211,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
             PreparedStatement statement = actualConnection.prepareStatement("INSERT INTO teamtable (teamname) " +
                     "VALUES ('" + teamname + "')");
             statement.executeUpdate();
-            System.out.println("Team added");
+            Logger.getInstance().logAdminAction("Team " + teamname + " is added to database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to add team");
+            Logger.getInstance().logAdminAction("ERROR: Failed to add team");
         }
     }
 
@@ -228,10 +224,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
         try {
             PreparedStatement statement = actualConnection.prepareStatement("DELETE from projecttable where projectname='" + projectname + "'");
             statement.executeUpdate();
-            System.out.println("Project "+ projectname +" deleted");
+            Logger.getInstance().logAdminAction("Project " + projectname + " is deleted from database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to delete project");
+            Logger.getInstance().logAdminAction("ERROR: Failed to delete project");
         }
     }
     @Override
@@ -239,10 +235,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
         try {
             PreparedStatement statement = actualConnection.prepareStatement("DELETE from tasktable where taskname='" + taskname + "'");
             statement.executeUpdate();
-            System.out.println("Task "+ taskname +" deleted");
+            Logger.getInstance().logAdminAction("Task " + taskname + " is deleted from database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to delete task");
+            Logger.getInstance().logAdminAction("ERROR: Failed to delete task");
         }
     }
     @Override
@@ -250,10 +246,10 @@ public class DatabaseManager implements OnDatabaseActionListener {
         try {
             PreparedStatement statement = actualConnection.prepareStatement("DELETE from teamtable where teamname='" + teamname + "'");
             statement.executeUpdate();
-            System.out.println("Team "+ teamname +" deleted");
+            Logger.getInstance().logAdminAction("Team " + teamname + " is deleted from database");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Failed to delete team");
+            Logger.getInstance().logAdminAction("ERROR: Failed to delete team");
         }
     }
 
@@ -279,12 +275,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
                         "WHERE USERNAME = '"+ username +"'");
                 statement2.executeUpdate();
             }
-            System.out.println(username + "'s privilege level is " + privlvl);
-            System.out.println(username + "'s password is changed");
+            Logger.getInstance().logAdminAction("Updated user " + username + "privilege and password");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Failed to change user data");
+            Logger.getInstance().logAdminAction("ERROR: Failed to change user data");
             return false;
         }
     }
@@ -311,11 +306,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
 
             PreparedStatement statement2 = actualConnection.prepareStatement("DESCRIBE " + tableName);
             statement2.executeUpdate();
-            System.out.println("Table named " + tableName + " OK");
+            Logger.getInstance().logApplicationAction("Table named " + tableName + " OK");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Table named " + tableName + " doesn't exist");
+            Logger.getInstance().logApplicationAction("ERROR: Table named " + tableName + " doesn't exist");
             return false;
         }
     }
@@ -323,11 +318,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
     @Override
     public boolean isThereDatabase(String databaseName) {
         if (useDatabase()) {
-            System.out.println("Database OK");
+            Logger.getInstance().logApplicationAction("Database OK");
             return true;
         }
         else {
-            System.out.println("No database present");
+            Logger.getInstance().logApplicationAction("No database present");
             return false;
         }
     }
@@ -381,13 +376,6 @@ public class DatabaseManager implements OnDatabaseActionListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (result == null) {
-           // System.out.println("Failed to get data");
-        }
-        else {
-           // System.out.println(selectingColumn + "data FROM table " + table + " access is OK" );
-           // System.out.println(conditionValue + "'s " + selectingColumn + " is " + result);
-        }
         return result;
     }
 
@@ -399,7 +387,7 @@ public class DatabaseManager implements OnDatabaseActionListener {
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Failed to use database");
+            Logger.getInstance().logApplicationAction("Error:Failed to use database");
             return false;
         }
     }
@@ -417,11 +405,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
             PreparedStatement statement2 = actualConnection.prepareStatement("USE projectmanagingdatabase");
             statement2.executeUpdate();
 
-            System.out.println("Database debugged");
+            Logger.getInstance().logAdminAction("Database debugged");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Database debugging error");
+            Logger.getInstance().logAdminAction("WARNING: Database debugging error or database is already present");
             return false;
         }
     }
@@ -437,11 +425,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
                     "teammember VARCHAR(255))");
             statement.executeUpdate();
 
-            System.out.println("Usertable debugged");
+            Logger.getInstance().logAdminAction("Usertable debugged");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Usertable debugging error");
+            Logger.getInstance().logAdminAction("ERROR: Usertable debugging error");
             return false;
         }
 
@@ -456,11 +444,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
                             "projecttotaleta INT(255))"); // JAVA NIE PIERDOL
             statement.executeUpdate();
 
-            System.out.println("Projecttable debugged");
+            Logger.getInstance().logAdminAction("Projecttable debugged");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Projecttable debugging error");
+            Logger.getInstance().logAdminAction("ERROR: Projecttable debugging error");
             return false;
         }
     }
@@ -474,11 +462,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
                             "teammanager VARCHAR(255))");
             statement.executeUpdate();
 
-            System.out.println("Teamtable debugged");
+            Logger.getInstance().logAdminAction("Teamtable debugged");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Teamtable debugging error");
+            Logger.getInstance().logAdminAction("ERROR: Teamtable debugging error");
             return false;
         }
 
@@ -493,11 +481,11 @@ public class DatabaseManager implements OnDatabaseActionListener {
                             "tasktimecommited INT(255) DEFAULT '0')");
             statement.executeUpdate();
 
-            System.out.println("Tasktable debugged");
+            Logger.getInstance().logAdminAction("Tasktable debugged");
             return true;
         }
         catch (SQLException e) {
-            System.out.println("Tasktable debugging error");
+            Logger.getInstance().logAdminAction("ERROR: Tasktable debugging error");
             return false;
         }
     }

@@ -1,5 +1,7 @@
 package com.company;
 
+import sun.rmi.runtime.Log;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -423,7 +425,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (changeUserSettingsLoginComboBoxInput.getSelectedItem() == null) {
-                    System.out.println("NO USER CHOSEN");
+                    Logger.getInstance().logApplicationAction("ERROR: No user selected. Failed to change user data. USER: " + mLoggedUsername);
                 }
                 else {
                     if (deleteUserCheckBox.isSelected()) {
@@ -450,7 +452,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.addTask(addTaskInputTextField.getText());
                 }
                 else {
-                    System.out.println("Error: Task name field is empty");
+                    Logger.getInstance().logApplicationAction("ERROR: Task name field is empty. Failed to add task. USER: " + mLoggedUsername);
                 }
             }
         });
@@ -461,7 +463,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.addTeam(addTeamTextInput.getText());
                 }
                 else {
-                    System.out.println("Error: Team name field is empty");
+                    Logger.getInstance().logApplicationAction("ERROR: Team name field is empty. Failed to add team. USER: " + mLoggedUsername);
                 }
             }
         });
@@ -472,7 +474,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.addProject(addProjectTextInput.getText());
                 }
                 else {
-                    System.out.println("Error: Team name field is empty");
+                    Logger.getInstance().logApplicationAction("ERROR: Project name field is empty. Failed to add project. USER: " + mLoggedUsername);
                 }
             }
         });
@@ -484,7 +486,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.deleteTask(deleteTaskInputComboBox.getSelectedItem().toString());
                 }
                 else {
-                    System.out.println("Error: You need to select task");
+                    Logger.getInstance().logApplicationAction("ERROR: No task selected. Failed to delete task. USER: " + mLoggedUsername);
                 }
                 refreshData();
             }
@@ -497,7 +499,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.deleteTeam(deleteTeamComboBoxInput.getSelectedItem().toString());
                 }
                 else {
-                    System.out.println("Error: You need to select team");
+                    Logger.getInstance().logApplicationAction("ERROR: No team selected. Failed to delete team. USER: " + mLoggedUsername);
                 }
                 refreshData();
             }
@@ -510,7 +512,7 @@ public class LoggedScreen {
                     onDatabaseActionListener.deleteProject(deleteProjectComboBoxInput.getSelectedItem().toString());
                 }
                 else {
-                    System.out.println("Error: You need to select project");
+                    Logger.getInstance().logApplicationAction("ERROR: No project selected. Failed to delete project. USER: " + mLoggedUsername);
                 }
                 refreshData();
             }
@@ -564,12 +566,10 @@ public class LoggedScreen {
                 int timeToAdd = ((Integer) worktimeSpinner.getValue());
 
                 if (selectedTaskTime != -1) {
-                    System.out.println("Time before update: " + selectedTaskTime);
-
-                    onDatabaseActionListener.insertAssignData("tasktable", "tasktimecommited", String.valueOf(selectedTaskTime+timeToAdd), "taskname", selectedTaskName);
-
-                    System.out.println("Added " + timeToAdd + " hours to " + selectedTaskName);
-                    System.out.println(selectedTaskName + " time commited is now " + (selectedTaskTime+timeToAdd));
+                    if (onDatabaseActionListener.insertAssignData("tasktable", "tasktimecommited", String.valueOf(selectedTaskTime+timeToAdd), "taskname", selectedTaskName)) {
+                        Logger.getInstance().logTaskAction(selectedTaskName,"User " + mLoggedUsername + " commited " + timeToAdd + " hours to task "
+                                + selectedTaskName + ". Total task time commited is now " + selectedTaskTime + timeToAdd);
+                    }
                   }
             }
         });
@@ -706,10 +706,10 @@ public class LoggedScreen {
         String newUsername = addUserLoginTextInput.getText();
 
         if (newUsername.equals("test")) {
-            System.out.println("'test' is used for connection testing, pick another username");
+            Logger.getInstance().logAdminAction("ERROR: Cannot username can't be 'test'");
         }
         else if (newUsername.length() > 15) {
-            System.out.println("Username is too long");
+            Logger.getInstance().logAdminAction("ERROR: Username is too long");
         }
         else {
             char[] pass = addUserPasswordInput.getPassword();
@@ -722,45 +722,39 @@ public class LoggedScreen {
 
             if (newUsername.length() == 0) {
                 isUsernameWrong = true;
+                Logger.getInstance().logAdminAction("ERROR: Password is too short. Failed to add user");
             }
 
             if (pass.length == 0 || pass.length >=25) {
                 isPasswordWrong = true;
+                Logger.getInstance().logAdminAction("ERROR: Incorrect password. Failed to add user");
             }
 
             if (newUsername.contains(" ")) {
                 isUsernameWrong = true;
+                Logger.getInstance().logAdminAction("ERROR: Username can't have spaces. Failed to add user");
             }
             for (int x = 0; x < pass.length; x++) {
                 if (pass[x] == ' ') {
                     isPasswordWrong = true;
+                    Logger.getInstance().logAdminAction("ERROR: Password can't have spaces. Failed to add user");
                 }
             }
 
             if (privLevel == null) {
                 isAccesLvlWrong = true;
+                Logger.getInstance().logAdminAction("ERROR: No Privilege level chosen. Failed to add user");
             }
 
             if (!isUsernameWrong && !isPasswordWrong && !isAccesLvlWrong) {
-                System.out.println("##############");
-                System.out.println("New user info is correct");
-                System.out.println("Attempting to add new user to database...");
+                Logger.getInstance().logAdminAction("ADDING USER: User info is correct");
 
                 if (listener.addUserActionPerformed(newUsername, pass, privLevel.toString())) {
-                    System.out.println("User " + newUsername + " had been added to database");
+                    Logger.getInstance().logAdminAction("ADDING USER: User: " + newUsername + " has been added to database");
                 }
                 else {
-                    System.out.println("Failed to add user to database");
+                    Logger.getInstance().logAdminAction("ERROR: Failed to add user to database");
                 }
-                System.out.println("##############");
-            }
-            else {
-                System.out.println("##############");
-                System.out.println("ERROR! Incorrect username or password:");
-                System.out.println("USERNAME: " + newUsername);
-                System.out.println("PASS: " + new String(pass));
-                System.out.println("ACCESS LEVEL: " + String.valueOf(privLevel));
-                System.out.println("##############");
             }
         }
     }
@@ -777,43 +771,35 @@ public class LoggedScreen {
 
         for (int x = 0; x < pass.length; x++) {
             if (pass[x] == ' ') {
+                Logger.getInstance().logAdminAction("ERROR: No spaces allowed in password. Failed to change user data");
                 isPasswordOK = false;
             }
         }
         if (pass.length >= 25) {
-            System.out.println("Password is too long!");
+            Logger.getInstance().logAdminAction("ERROR: Password is too long. Failed to change user data");
             isPasswordOK = false;
         }
 
         if (isPasswordOK) {
             if (onDatabaseActionListener.changeUserData(username, pass, privLvl)) {
-                System.out.println("Changes has been successfully applied");
-            }
-            else {
-                System.out.println("ERROR: Changes aren't applied");
+                Logger.getInstance().logAdminAction("CHANGE USER DATA: Changes are successfully applied");
+            } else {
+                Logger.getInstance().logAdminAction("ERROR: User changes aren't applied");
             }
         }
-        else {
-            System.out.println("You can't use spaces in password!");
-        }
-
-
-
     }
     private void deleteUser(OnDatabaseActionListener listener) {
 
         String usernameToDelete = changeUserSettingsLoginComboBoxInput.getSelectedItem().toString();
-        System.out.println("################");
 
-        System.out.println("DELETING USER...");
+        Logger.getInstance().logAdminAction("Trying to delete user...");
 
         if (listener.deleteUserActionPerformed(usernameToDelete)) {
-            System.out.println("USER " + usernameToDelete + " DELETED!");
+            Logger.getInstance().logAdminAction("User " + usernameToDelete + " deleted!");
         }
         else {
-            System.out.println("FAILED TO DELETE USER");
+            Logger.getInstance().logAdminAction("ERROR: Failed to delete user");
         }
-        System.out.println("################");
     }
 
     /**
@@ -948,10 +934,11 @@ public class LoggedScreen {
                 assignDeveloperToTeamTeamComboBox.getSelectedItem().toString(),"username",
                 assignDeveloperToTeamDeveloperComboBox.getSelectedItem().toString())) {
 
-            System.out.println("DEV ASSIGNED TO TEAM");
+            Logger.getInstance().logAdminAction("Developer " + assignDeveloperToTeamDeveloperComboBox.getSelectedItem().toString()
+                    + " is assigned to team " + assignDeveloperToTeamDeveloperComboBox.getSelectedItem().toString());
         }
         else {
-            System.out.println("FAIL TO ASSIGN DEV TO TEAM");
+            Logger.getInstance().logAdminAction("ERROR: Failed to assign developer to team");
         }
     }
     private void assignProjectToTeam() {
@@ -960,10 +947,12 @@ public class LoggedScreen {
                 assignProjectToTeamTeamComboBox.getSelectedItem().toString(), "projectname",
                 assignProjectToTeamProjectComboBox.getSelectedItem().toString())) {
 
-            System.out.println("PROJECT ASSIGNED TO TEAM");
+            Logger.getInstance().logProjectAction(assignProjectToTeamProjectComboBox.getSelectedItem().toString(),
+                    "Project " + assignProjectToTeamProjectComboBox.getSelectedItem().toString()
+                    + " is assigned to team " + assignProjectToTeamTeamComboBox.getSelectedItem().toString());
         }
         else {
-            System.out.println("FAIL TO ASSIGN PROJECT TO TEAM");
+            Logger.getInstance().logAdminAction("ERROR: Failed to assign project to team");
         }
 
     }
@@ -973,10 +962,11 @@ public class LoggedScreen {
                 assignTeamManagerToTeamTeamSelectionComboBoxInput.getSelectedItem().toString(),"username",
                 assignTeamManagerToTeamUserSelectionComboBoxInput.getSelectedItem().toString())) {
 
-            System.out.println("TMANAGER ASSIGNED TO TEAM");
+            Logger.getInstance().logAdminAction("Team manager " + assignTeamManagerToTeamUserSelectionComboBoxInput.getSelectedItem().toString()
+                    + " is assigned to team " + assignTeamManagerToTeamTeamSelectionComboBoxInput.getSelectedItem().toString());
         }
         else {
-            System.out.println("FAIL TO ASSIGN TMANAGER TO TEAM");
+            Logger.getInstance().logAdminAction("ERROR: Failed to assign team manager to team");
         }
     }
 
@@ -985,10 +975,12 @@ public class LoggedScreen {
                 developerManagementDevInputComboBox.getSelectedItem().toString(),"taskname",
                 developerManagementTaskInputComboBox.getSelectedItem().toString())) {
 
-            System.out.println("TASK ASSIGNED TO DEV");
+            Logger.getInstance().logTaskAction(developerManagementTaskInputComboBox.getSelectedItem().toString()
+                    ,"Task " + developerManagementTaskInputComboBox.getSelectedItem().toString()
+                    + " is assigned to developer " + developerManagementDevInputComboBox.getSelectedItem().toString());
         }
         else {
-            System.out.println("FAIL TO ASSIGN TASK TO DEV");
+            Logger.getInstance().logAdminAction("ERROR: Failed to assign developer to task");
         }
     }
 
@@ -1040,7 +1032,7 @@ public class LoggedScreen {
             return Integer.parseInt(result);
         }
         else {
-            System.out.println("ERROR");
+            Logger.getInstance().logAdminAction("ERROR: Failed to select task worktime");
             return -1;
         }
     }
@@ -1048,15 +1040,13 @@ public class LoggedScreen {
     private void setTotalProjectWorktime(int spinnerValue, String projectname) {
 
         if (spinnerValue >= 0 & onDatabaseActionListener.insertAssignData("projecttable", "projecttotaleta", String.valueOf(spinnerValue), "projectname", projectname)) {
-            System.out.println("Project " + projectname + " worktime is set to " +spinnerValue);
+            Logger.getInstance().logAdminAction("Project " + projectname + " total time is set to " + spinnerValue);
         }
         else {
-            System.out.println("failed to set data");
+            Logger.getInstance().logAdminAction("ERROR: Failed to set project total time");
             if (spinnerValue < 0) {
-                System.out.println("Project time cant be less than 0");
+                Logger.getInstance().logAdminAction("ERROR: Project time cant be less than 0");
             }
         }
     }
-
-
 }
