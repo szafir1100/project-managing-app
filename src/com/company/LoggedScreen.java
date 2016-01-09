@@ -177,6 +177,9 @@ public class LoggedScreen {
     private JLabel sessionLogLabel;
     private JScrollBar sessionLogScrollBar;
     private JPanel sessionLogPanel;
+    private JButton writeToLogButton;
+    private JTextField writeToLogLogMessageTextField;
+    private JTextField writeToLogLogTypeTextField;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -585,6 +588,15 @@ public class LoggedScreen {
             }
         });
 
+        writeToLogButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String logType = writeToLogLogTypeTextField.getText();
+                String logMessage = writeToLogLogMessageTextField.getText();
+
+                new Logger(logType, logMessage);
+            }
+        });
     }
 
     private void refreshData() {
