@@ -28,20 +28,38 @@ public class Logger {
 
     public void logTaskAction(String taskName, String logMessage) {
         String formattedLog = formatLog(TASK_LOG_TAG, taskName, logMessage);
-        System.out.println(formattedLog);
-        writeToLogTest(formattedLog);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, isThereLogFile(LOG_FILE_PATH)))) {
+            writer.write(formattedLog);
+            writer.newLine();
+            writer.close();
+            System.out.println("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logProjectAction(String projectName, String logMessage) {
         String formattedLog = formatLog(PROJECT_LOG_TAG, projectName, logMessage);
-        System.out.println(formattedLog);
-        writeToLogTest(formattedLog);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, isThereLogFile(LOG_FILE_PATH)))) {
+            writer.write(formattedLog);
+            writer.newLine();
+            writer.close();
+            System.out.println("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logApplicationAction(String logMessage) {
         String formattedLog = formatLog(APP_LOG_TAG, null, logMessage);
-        System.out.println(formattedLog);
-        writeToLogTest(formattedLog);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, isThereLogFile(LOG_FILE_PATH)))) {
+            writer.write(formattedLog);
+            writer.newLine();
+            writer.close();
+            System.out.println("success");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -49,6 +67,7 @@ public class Logger {
      * @param logMessage
      */
     private void writeToLogTest(String logMessage) {
+        String formattedLog = formatLog(APP_LOG_TAG, null, logMessage);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_FILE_PATH, isThereLogFile(LOG_FILE_PATH)))) {
             writer.write(logMessage);
