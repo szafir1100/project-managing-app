@@ -111,7 +111,9 @@ public class Logger {
                 }
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logApplicationAction("Log File not found. Making new Log file...");
+            listModel.addElement(formatLog("A", null, "Log File not found. Making new Log file..."));
+            return listModel;
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -419,6 +419,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 addUser(onDatabaseActionListener);
+                refreshData();
             }
         });
         changeUserSettingsDoneButton.addActionListener(new ActionListener() {
@@ -437,6 +438,7 @@ public class LoggedScreen {
                         comboBoxesWithNoConditionColumnListInit(changeUserSettingsLoginComboBoxInput, "usertable", "username");
                     }
                 }
+                refreshData();
             }
         });
         debugDatabaseButton.addActionListener(new ActionListener() {
@@ -454,6 +456,7 @@ public class LoggedScreen {
                 else {
                     Logger.getInstance().logApplicationAction("ERROR: Task name field is empty. Failed to add task. USER: " + mLoggedUsername);
                 }
+                refreshData();
             }
         });
         addTeamDoneButton.addActionListener(new ActionListener() {
@@ -465,6 +468,7 @@ public class LoggedScreen {
                 else {
                     Logger.getInstance().logApplicationAction("ERROR: Team name field is empty. Failed to add team. USER: " + mLoggedUsername);
                 }
+                refreshData();
             }
         });
         addProjectDoneButton.addActionListener(new ActionListener() {
@@ -476,6 +480,7 @@ public class LoggedScreen {
                 else {
                     Logger.getInstance().logApplicationAction("ERROR: Project name field is empty. Failed to add project. USER: " + mLoggedUsername);
                 }
+                refreshData();
             }
         });
 
@@ -522,6 +527,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 assignDeveloperToTeam();
+                refreshData();
             }
         });
 
@@ -529,6 +535,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 assignProjectToTeam();
+                refreshData();
             }
         });
 
@@ -536,6 +543,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 assignTeamManagerToTeam();
+                refreshData();
             }
         });
 
@@ -543,6 +551,7 @@ public class LoggedScreen {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 assignDeveloperToTask();
+                refreshData();
             }
         });
 
@@ -552,6 +561,7 @@ public class LoggedScreen {
 
                 int spinnerValue = ((Integer) setTotalProjectWorktimeSpinner.getValue());
                 setTotalProjectWorktime(spinnerValue, setTotalProjectWorktimeComboBox.getSelectedItem().toString());
+                refreshData();
             }
         });
 
@@ -571,6 +581,7 @@ public class LoggedScreen {
                                 + selectedTaskName + ". Total task time commited is now " + selectedTaskTime + timeToAdd);
                     }
                   }
+                refreshData();
             }
         });
 
