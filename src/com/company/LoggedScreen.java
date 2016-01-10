@@ -1,11 +1,13 @@
 package com.company;
 
-import sun.rmi.runtime.Log;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Tomasz Marzeion on 2015-12-07.
@@ -176,12 +178,22 @@ public class LoggedScreen {
     private JScrollPane sessionLogScrollPane;
     private JPanel projectLogPanel;
     private JLabel projectLogLabel;
-    private JList userLogList;
+    private JList projectLogList;
     private JPanel taskLogPanel;
     private JLabel taskLogLabel;
-    private JList projectLogList;
+    private JList taskLogList;
     private JScrollPane projectLogScrollPane;
     private JScrollPane taskLogScrollPane;
+    private JList overallLog;
+    private JButton sortByTypeButton;
+    private JButton sortByDateButton;
+    private JComboBox sortByDateMonthComboBox;
+    private JButton applyDateSortButton;
+    private JButton applyTaskSortButton;
+    private JButton applyProjectSortButton;
+    private JComboBox sortByDateDayComboBox;
+    private JComboBox sortByTaskComboBox;
+    private JComboBox sortByProjectComboBox;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -588,6 +600,7 @@ public class LoggedScreen {
         projectInfoProjectComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                projectLogUpdate();
                 refreshProjectInfo();
             }
         });
@@ -595,21 +608,91 @@ public class LoggedScreen {
         projectInfoTaskComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                refreshTaskInfo();
+                taskLogUpdate();
+            }
+        });
+        sortByTypeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                overallLogUpdatebyType();
             }
         });
 
-        writeToLogButton.addActionListener(new ActionListener() {
+        sortByDateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String logType = writeToLogLogTypeTextField.getText();
-                String logMessage = writeToLogLogMessageTextField.getText();
-
-                Logger.getInstance().logApplicationAction(logMessage);             }
+                overallLogUpdate();
+            }
+        });
+        applyDateSortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sortOverallLogBySpecificDate();
+            }
+        });
+        applyTaskSortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sortOverallLogByTask();
+            }
+        });
+        applyProjectSortButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sortOverallLogByProject();
+            }
         });
     }
 
+    private void sortOverallLogBySpecificDate() {
+        ListModel<String> wholeLog = Logger.getInstance().getLogListModel("ALL");
+        String month = sortByDateMonthComboBox.getSelectedItem().toString();
+        String day = sortByDateDayComboBox.getSelectedItem().toString();
+        DefaultListModel<String> result = new DefaultListModel();
+
+        for (int x = 0; x < wholeLog.getSize(); x++) {
+            String line = wholeLog.getElementAt(x);
+            if (line.substring(0,2).equals(month) && line.substring(3,5).equals(day)) {
+                result.addElement(line);
+            }
+        }
+        overallLog.setModel(result);
+    }
+
+    private void sortOverallLogByTask() {
+
+        ListModel<String> wholeLog = Logger.getInstance().getLogListModel("ALL");
+        String task = sortByTaskComboBox.getSelectedItem().toString();
+        DefaultListModel<String> result = new DefaultListModel();
+
+        for (int x = 0; x < wholeLog.getSize(); x++) {
+            String line = wholeLog.getElementAt(x);
+            if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+task.length()).equals(task)) {
+                result.addElement(line);
+            }
+        }
+        overallLog.setModel(result);
+    }
+
+    private void sortOverallLogByProject() {
+
+        ListModel<String> wholeLog = Logger.getInstance().getLogListModel("ALL");
+        String project = sortByProjectComboBox.getSelectedItem().toString();
+        DefaultListModel<String> result = new DefaultListModel();
+
+        for (int x = 0; x < wholeLog.getSize(); x++) {
+            String line = wholeLog.getElementAt(x);
+            if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+project.length()).equals(project)) {
+                result.addElement(line);
+            }
+        }
+        overallLog.setModel(result);
+    }
+
     private void refreshData() {
+        refreshUserPanelButtonState();
+        refreshAdminPanelButtonState();
+
         comboBoxesWithNoConditionColumnListInit(changeUserSettingsLoginComboBoxInput, "usertable", "username");
         comboBoxesWithNoConditionColumnListInit(deleteProjectComboBoxInput, "projecttable", "projectname");
         comboBoxesWithNoConditionColumnListInit(deleteTeamComboBoxInput, "teamtable", "teamname");
@@ -626,9 +709,16 @@ public class LoggedScreen {
         comboBoxesWithConditionColumnListInit(assignTeamManagerToTeamUserSelectionComboBoxInput, "usertable", "username", "privilegelvl", "TMANAGER");
         comboBoxesWithNoConditionColumnListInit(assignTeamManagerToTeamTeamSelectionComboBoxInput, "teamtable", "teamname");
 
+        comboBoxesWithConditionColumnListInit(projectInfoProjectComboBox, "projecttable", "projectname", "projectteam", getUserTeam());
+        comboBoxesWithConditionColumnListInit(projectInfoTaskComboBox, "tasktable", "taskname", "taskdeveloper", mLoggedUsername);
+
+        logTabComboBoxesInit();
+
         refreshProjectInfo();
-        refreshTaskInfo();
-        sessionLogUpdate();
+
+        projectLogUpdate();
+        taskLogUpdate();
+        appLogUpdate();
         adminLogUpdate();
 
         setTotalProjectWorktimeComboBox.removeAllItems();
@@ -643,21 +733,130 @@ public class LoggedScreen {
             chosenProjectLabel.setText("ACTUAL PROJECT: THERE IS NO PROJECT TO DISPLAY");
         }
 
-        comboBoxesWithConditionColumnListInit(projectInfoProjectComboBox, "projecttable", "projectname", "projectteam", getUserTeam());
-        comboBoxesWithConditionColumnListInit(projectInfoTaskComboBox, "tasktable", "taskname", "taskdeveloper", mLoggedUsername);
+
 
 
         //TODO Refresh logów
 
     }
+    private void overallLogUpdate() {
+        overallLog.setModel(Logger.getInstance().getLogListModel("ALL"));
+    }
 
-    private void refreshTaskInfo() {
+    private void overallLogUpdatebyType() {
+        ListModel<String> projectListP = Logger.getInstance().getLogListModel("P");
+        ListModel<String> projectListT = Logger.getInstance().getLogListModel("T");
+        ListModel<String> projectListA = Logger.getInstance().getLogListModel("A");
+        ListModel<String> projectListX = Logger.getInstance().getLogListModel("X");
 
-        //TODO Refresh logów
+        DefaultListModel<String> mergeList = new DefaultListModel<String>();
 
+        for (int x = 0; x < projectListP.getSize(); x++) {
+            mergeList.addElement(projectListP.getElementAt(x));
+        }
+        for (int x = 0; x < projectListT.getSize(); x++) {
+            mergeList.addElement(projectListT.getElementAt(x));
+        }
+        for (int x = 0; x < projectListA.getSize(); x++) {
+            mergeList.addElement(projectListA.getElementAt(x));
+        }
+        for (int x = 0; x < projectListX.getSize(); x++) {
+            mergeList.addElement(projectListX.getElementAt(x));
+        }
+
+        overallLog.setModel(mergeList);
+    }
+
+    private void projectLogUpdate() {
+
+        if (projectInfoProjectComboBox.getSelectedItem()!=null) {
+            ListModel<String> projectList = Logger.getInstance().getLogListModel("P");
+            DefaultListModel<String> specifiedProjectList = new DefaultListModel<>();
+            String selectedProject = projectInfoProjectComboBox.getSelectedItem().toString();
+
+            for (int x = 0;x < projectList.getSize(); x++) {
+
+                String line = projectList.getElementAt(x);
+
+                if (line.substring(line.indexOf(";")+3, line.indexOf(";")+selectedProject.length()+3).contains(selectedProject)) {
+                    specifiedProjectList.addElement(line);
+                }
+            }
+            projectLogList.setModel(specifiedProjectList);
+        }
+        else {
+            projectLogList.setModel(new DefaultListModel());
+        }
+    }
+
+    private void taskLogUpdate() {
+
+        if (projectInfoTaskComboBox.getSelectedItem()!=null) {
+            ListModel<String> taskList = Logger.getInstance().getLogListModel("T");
+            DefaultListModel<String> specifiedTaskList = new DefaultListModel<>();
+            String selectedTask = projectInfoTaskComboBox.getSelectedItem().toString();
+
+            for (int x = 0;x < taskList.getSize(); x++) {
+
+                String line = taskList.getElementAt(x);
+
+                if (line.substring(line.indexOf(";")+3, line.indexOf(";")+selectedTask.length()+3).contains(selectedTask)) {
+                    specifiedTaskList.addElement(line);
+                }
+            }
+            taskLogList.setModel(specifiedTaskList);
+        }
+        else {
+            taskLogList.setModel(new DefaultListModel());
+        }
+    }
+
+    private void logTabComboBoxesInit() {
+
+        sortByDateDayComboBox.removeAllItems();
+        sortByDateMonthComboBox.removeAllItems();
+        sortByTaskComboBox.removeAllItems();
+        sortByProjectComboBox.removeAllItems();
+
+
+        for (int x = 1; x <= 12; x++) {
+            if (x < 10) {
+                sortByDateMonthComboBox.addItem("0" + String.valueOf(x));
+            }
+            else {
+                sortByDateMonthComboBox.addItem(String.valueOf(x));
+            }
+        }
+
+        for (int x = 1; x <= 31; x++) {
+            if (x < 10) {
+                sortByDateDayComboBox.addItem("0" + String.valueOf(x));
+            }
+            else {
+                sortByDateDayComboBox.addItem(String.valueOf(x));
+            }
+        }
+
+        DateFormat monthFormat = new SimpleDateFormat("MM");
+        Date monthDate = Calendar.getInstance().getTime();
+        String reportMonth = monthFormat.format(monthDate);
+
+        DateFormat dayFormat = new SimpleDateFormat("dd");
+        Date dayDate = Calendar.getInstance().getTime();
+        String reportDay = dayFormat.format(dayDate);
+
+        String month = reportMonth;
+        String day = reportDay;
+
+        sortByDateDayComboBox.setSelectedIndex(Integer.parseInt(day)-1);
+        sortByDateMonthComboBox.setSelectedIndex(Integer.parseInt(month)-1);
+
+        comboBoxesWithNoConditionColumnListInit(sortByTaskComboBox, "tasktable", "taskname");
+        comboBoxesWithNoConditionColumnListInit(sortByProjectComboBox, "projecttable", "projectname");
     }
 
     private void mainInitialize() {
+        logTabComboBoxesInit();
 
         getUserPrivLvl();
         getUserTeam();
@@ -667,8 +866,7 @@ public class LoggedScreen {
         refreshData();
         userPrivilegesComboBoxInit();
 
-        sessionLogUpdate();
-        adminLogUpdate();
+        overallLogUpdate();
     }
     private void userPrivilegesComboBoxInit() {
         String admin = "ADMIN";
@@ -696,7 +894,7 @@ public class LoggedScreen {
         }
     }
 
-    private void sessionLogUpdate() {
+    private void appLogUpdate() {
         sessionLogList.setModel(Logger.getInstance().getLogListModel("A"));
     }
     private void adminLogUpdate() {
@@ -1003,7 +1201,7 @@ public class LoggedScreen {
                     + " is assigned to developer " + developerManagementDevInputComboBox.getSelectedItem().toString());
         }
         else {
-            Logger.getInstance().logAdminAction("ERROR: Failed to assign developer to task");
+            Logger.getInstance().logApplicationAction("ERROR: Failed to assign developer to task");
         }
     }
 
@@ -1055,7 +1253,7 @@ public class LoggedScreen {
             return Integer.parseInt(result);
         }
         else {
-            Logger.getInstance().logAdminAction("ERROR: Failed to select task worktime");
+            Logger.getInstance().logTaskAction(taskname,"ERROR: Failed to select task worktime");
             return -1;
         }
     }
@@ -1063,12 +1261,12 @@ public class LoggedScreen {
     private void setTotalProjectWorktime(int spinnerValue, String projectname) {
 
         if (spinnerValue >= 0 & onDatabaseActionListener.insertAssignData("projecttable", "projecttotaleta", String.valueOf(spinnerValue), "projectname", projectname)) {
-            Logger.getInstance().logAdminAction("Project " + projectname + " total time is set to " + spinnerValue);
+            Logger.getInstance().logProjectAction(projectname, "Project " + projectname + " total time is set to " + spinnerValue);
         }
         else {
-            Logger.getInstance().logAdminAction("ERROR: Failed to set project total time");
+            Logger.getInstance().logProjectAction(projectname, "ERROR: Failed to set project total time");
             if (spinnerValue < 0) {
-                Logger.getInstance().logAdminAction("ERROR: Project time cant be less than 0");
+                Logger.getInstance().logProjectAction(projectname, "ERROR: Project time cant be less than 0");
             }
         }
     }

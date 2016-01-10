@@ -96,7 +96,7 @@ public class Logger {
     }
 
     /**
-     * @param logTag A,X,P,T
+     * @param logTag A,X,P,T. ALL - for whole log
      * @return ListModel for logs content setting
      */
     public ListModel<String> getLogListModel(String logTag) {
@@ -106,7 +106,7 @@ public class Logger {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if(line.substring(line.indexOf(";") + 1,line.indexOf(";") + 2).equals(logTag)) {
+                if(line.substring(line.indexOf(";") + 1,line.indexOf(";") + 2).equals(logTag) || logTag.equals("ALL")) {
                     listModel.addElement(line);
                 }
             }
