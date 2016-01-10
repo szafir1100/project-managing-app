@@ -665,10 +665,12 @@ public class LoggedScreen {
         String task = sortByTaskComboBox.getSelectedItem().toString();
         DefaultListModel<String> result = new DefaultListModel();
 
-        for (int x = 0; x < wholeLog.getSize(); x++) {
-            String line = wholeLog.getElementAt(x);
-            if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+task.length()).equals(task)) {
-                result.addElement(line);
+        if (task != null) {
+            for (int x = 0; x < wholeLog.getSize(); x++) {
+                String line = wholeLog.getElementAt(x);
+                if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+task.length()).equals(task)) {
+                    result.addElement(line);
+                }
             }
         }
         overallLog.setModel(result);
@@ -680,10 +682,12 @@ public class LoggedScreen {
         String project = sortByProjectComboBox.getSelectedItem().toString();
         DefaultListModel<String> result = new DefaultListModel();
 
-        for (int x = 0; x < wholeLog.getSize(); x++) {
-            String line = wholeLog.getElementAt(x);
-            if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+project.length()).equals(project)) {
-                result.addElement(line);
+        if (project != null) {
+            for (int x = 0; x < wholeLog.getSize(); x++) {
+                String line = wholeLog.getElementAt(x);
+                if (line.substring(line.indexOf(";")+3,line.indexOf(";")+3+project.length()).equals(project)) {
+                    result.addElement(line);
+                }
             }
         }
         overallLog.setModel(result);
@@ -858,8 +862,7 @@ public class LoggedScreen {
     private void mainInitialize() {
         logTabComboBoxesInit();
 
-        getUserPrivLvl();
-        getUserTeam();
+        setAccesToPanelsDependingByAccesLvl();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
 
@@ -867,7 +870,47 @@ public class LoggedScreen {
         userPrivilegesComboBoxInit();
 
         overallLogUpdate();
+
+
     }
+
+    private void setAccesToPanelsDependingByAccesLvl() {
+
+        if (getUserPrivLvl().equals("TMANAGER")) {
+            tabbedPane.setEnabledAt(1, false);
+            tabbedPane.setEnabledAt(2, false);
+        }
+        else if (getUserPrivLvl().equals("DEVELOPER")) {
+
+            projectInfoProjectComboBox.setEnabled(false);
+            assignDeveloperButton.setEnabled(false);
+            setTotalProjectWorktimeButton.setEnabled(false);
+            addTaskButton.setEnabled(false);
+            deleteTaskButton.setEnabled(false);
+            projectLogList.setEnabled(false);
+            projectLogList.setVisible(false);
+
+            tabbedPane.setEnabledAt(1, false);
+            tabbedPane.setEnabledAt(2, false);
+        }
+        else if (!getUserPrivLvl().equals("ADMIN") || !mLoggedUsername.equals("debug")) {
+            projectInfoProjectComboBox.setEnabled(false);
+            assignDeveloperButton.setEnabled(false);
+            setTotalProjectWorktimeButton.setEnabled(false);
+            addTaskButton.setEnabled(false);
+            deleteTaskButton.setEnabled(false);
+            projectLogList.setEnabled(false);
+            projectLogList.setVisible(false);
+            projectInfoTaskComboBox.setEnabled(false);
+            addWorktimeButton.setEnabled(false);
+
+            tabbedPane.setEnabledAt(1, false);
+            tabbedPane.setEnabledAt(2, false);
+        }
+    }
+
+
+
     private void userPrivilegesComboBoxInit() {
         String admin = "ADMIN";
         String tmanager = "TMANAGER";
