@@ -167,21 +167,21 @@ public class LoggedScreen {
     private JProgressBar projectProgress;
     private JComboBox projectInfoProjectComboBox;
     private JComboBox projectInfoTaskComboBox;
-    private JPanel projectLogPanel;
-    private JList userLogList;
-    private JScrollBar userLogScrollBar;
-    private JLabel projectLogLabel;
-    private JPanel taskLogPanel;
-    private JList projectLogList;
-    private JScrollBar projectLogScrollBar;
-    private JLabel taskLogLabel;
     private JList sessionLogList;
-    private JLabel sessionLogLabel;
-    private JScrollBar sessionLogScrollBar;
-    private JPanel sessionLogPanel;
     private JButton writeToLogButton;
     private JTextField writeToLogLogMessageTextField;
     private JTextField writeToLogLogTypeTextField;
+    private JPanel sessionLogPanel;
+    private JLabel sessionLogLabel;
+    private JScrollPane sessionLogScrollPane;
+    private JPanel projectLogPanel;
+    private JLabel projectLogLabel;
+    private JList userLogList;
+    private JPanel taskLogPanel;
+    private JLabel taskLogLabel;
+    private JList projectLogList;
+    private JScrollPane projectLogScrollPane;
+    private JScrollPane taskLogScrollPane;
 
     OnFrameStateChangeListener onFrameStateChangeListener;
     OnDatabaseActionListener onDatabaseActionListener;
@@ -617,6 +617,8 @@ public class LoggedScreen {
 
         refreshProjectInfo();
         refreshTaskInfo();
+        sessionLogUpdate();
+        adminLogUpdate();
 
         setTotalProjectWorktimeComboBox.removeAllItems();
         workTimeTaskInputComboBox.removeAllItems();
@@ -648,7 +650,6 @@ public class LoggedScreen {
 
         getUserPrivLvl();
         getUserTeam();
-        setViewportViewForScrollPanes();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
 
@@ -656,6 +657,7 @@ public class LoggedScreen {
         userPrivilegesComboBoxInit();
 
         sessionLogUpdate();
+        adminLogUpdate();
     }
     private void userPrivilegesComboBoxInit() {
         String admin = "ADMIN";
@@ -682,12 +684,12 @@ public class LoggedScreen {
             comboBox.addItem(arrayList.get(i));
         }
     }
-    private void setViewportViewForScrollPanes() {
-        //TODO
-    }
 
     private void sessionLogUpdate() {
         sessionLogList.setModel(Logger.getInstance().getLogListModel("A"));
+    }
+    private void adminLogUpdate() {
+        adminPanelLog.setModel(Logger.getInstance().getLogListModel("X"));
     }
 
 

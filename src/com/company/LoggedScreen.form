@@ -106,7 +106,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <grid id="b53ce" binding="projectLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <grid id="8fc85" binding="projectLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -114,21 +114,7 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="1c225" class="javax.swing.JList" binding="userLogList">
-                                <constraints>
-                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
-                              <component id="de08b" class="javax.swing.JScrollBar" binding="userLogScrollBar">
-                                <constraints>
-                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties/>
-                              </component>
-                              <component id="616db" class="javax.swing.JLabel" binding="projectLogLabel">
+                              <component id="240dc" class="javax.swing.JLabel" binding="projectLogLabel">
                                 <constraints>
                                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
@@ -136,9 +122,22 @@
                                   <text value="PROJECT LOG"/>
                                 </properties>
                               </component>
+                              <scrollpane id="bd004" binding="projectLogScrollPane">
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="32107" class="javax.swing.JList" binding="userLogList">
+                                    <constraints/>
+                                    <properties/>
+                                  </component>
+                                </children>
+                              </scrollpane>
                             </children>
                           </grid>
-                          <grid id="11959" binding="taskLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <grid id="fb9a5" binding="taskLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints>
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -146,23 +145,7 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="4d98b" class="javax.swing.JList" binding="projectLogList">
-                                <constraints>
-                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties>
-                                  <enabled value="true"/>
-                                </properties>
-                              </component>
-                              <component id="7a308" class="javax.swing.JScrollBar" binding="projectLogScrollBar">
-                                <constraints>
-                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties/>
-                              </component>
-                              <component id="55f2" class="javax.swing.JLabel" binding="taskLogLabel">
+                              <component id="dd594" class="javax.swing.JLabel" binding="taskLogLabel">
                                 <constraints>
                                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
@@ -170,11 +153,26 @@
                                   <text value="TASK LOG"/>
                                 </properties>
                               </component>
+                              <scrollpane id="7d04e" binding="taskLogScrollPane">
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="9c71" class="javax.swing.JList" binding="projectLogList">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
                             </children>
                           </grid>
                         </children>
                       </grid>
-                      <grid id="d631" binding="sessionLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="94ed7" binding="sessionLogPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -182,7 +180,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="8f7d4" class="javax.swing.JLabel" binding="sessionLogLabel">
+                          <component id="4b97a" class="javax.swing.JLabel" binding="sessionLogLabel">
                             <constraints>
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -190,20 +188,19 @@
                               <text value="SESSION LOG"/>
                             </properties>
                           </component>
-                          <component id="b97ee" class="javax.swing.JList" binding="sessionLogList">
+                          <scrollpane id="1da1f" binding="sessionLogScrollPane">
                             <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                <preferred-size width="150" height="50"/>
-                              </grid>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties/>
-                          </component>
-                          <component id="cc0f4" class="javax.swing.JScrollBar" binding="sessionLogScrollBar">
-                            <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties/>
-                          </component>
+                            <border type="none"/>
+                            <children>
+                              <component id="1dc71" class="javax.swing.JList" binding="sessionLogList">
+                                <constraints/>
+                                <properties/>
+                              </component>
+                            </children>
+                          </scrollpane>
                         </children>
                       </grid>
                     </children>
