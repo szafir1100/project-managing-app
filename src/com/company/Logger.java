@@ -1,7 +1,9 @@
 package com.company;
 
+import com.sun.istack.internal.Interned;
 import com.sun.istack.internal.Nullable;
 
+import javax.swing.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -91,6 +93,29 @@ public class Logger {
         result += reportDate + ";" + symbol + ";" + name + "; -> " + message;
         System.out.println(message);
         return result;
+    }
+
+    /**
+     * @param logTag A,X,P,T
+     * @return ListModel for logs content setting
+     */
+    public ListModel<String> getLogListModel(String logTag) {
+        File file = new File(LOG_FILE_PATH);
+        DefaultListModel<String> listModel = new DefaultListModel();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if(line.substring(line.indexOf(";") + 1,line.indexOf(";") + 2).equals(logTag)) {
+                    listModel.addElement(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listModel;
     }
 
 }

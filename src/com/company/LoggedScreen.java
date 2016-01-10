@@ -648,11 +648,14 @@ public class LoggedScreen {
 
         getUserPrivLvl();
         getUserTeam();
+        setViewportViewForScrollPanes();
 
         usernameLabel.setText("LOGGED AS: " + mLoggedUsername);
 
         refreshData();
         userPrivilegesComboBoxInit();
+
+        sessionLogUpdate();
     }
     private void userPrivilegesComboBoxInit() {
         String admin = "ADMIN";
@@ -678,6 +681,13 @@ public class LoggedScreen {
         for (int i = 0; i < arrayList.size(); i++) {
             comboBox.addItem(arrayList.get(i));
         }
+    }
+    private void setViewportViewForScrollPanes() {
+        //TODO
+    }
+
+    private void sessionLogUpdate() {
+        sessionLogList.setModel(Logger.getInstance().getLogListModel("A"));
     }
 
 
